@@ -1,10 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom';
-import '../styles/components'
+import '../styles/components.css'
+import UlLink from './Link.jsx';
 
 function Header(props) {
-    const { selected } = props
+    const { isSelected } = props
+    const { isSelected1, isSelected2, isSelected3 } = isSelected
+
     return (
         <header>
             <div>
@@ -13,28 +15,18 @@ function Header(props) {
                 </h1>
             </div>
             <div>
-                <li>
-                    <ul className={selected === '0' ? 'selected' : 'not-selected'}>
-                        <Link to="../pages/Home.jsx">Home</Link>
-                    </ul>
-                    <ul className={selected === '1' ? 'selected' : 'not-selected'}>
-                        <Link to="../pages/Templates.jsx">Templates</Link>
-                    </ul>
-                    <ul className={selected === '2' ? 'selected' : 'not-selected'}>
-                        <Link to="../pages/CreateCV.jsx">Create CV</Link>
-                    </ul>
-                </li>
+                <ul>
+                    <UlLink page={'Home'} isSelected={isSelected1} />
+                    <UlLink page={'Create CV'} isSelected={isSelected2} />
+                    <UlLink page={'Templates'} isSelected={isSelected3} />
+                </ul>
             </div>
         </header>
     )
 }
 
 Header.propTypes = {
-    selected: PropTypes.string,
-}
-
-Header.defaultProps = {
-    selected: '0',
+    isSelected: PropTypes.object
 }
 
 export default Header
