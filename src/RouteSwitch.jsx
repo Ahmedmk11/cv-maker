@@ -16,7 +16,7 @@ const RouteSwitch = () => {
             <Route path="/Home" element={<Home />} />
             <Route path="/CreateCV" element={<CreateCV />} />
             <Route path="/Templates" element={<Templates />} />
-            <Route path="/PageNotFound" element={<PageNotFound />} />
+            <Route path="*" element={<PageNotFound />} />
             <Route path="/About" element={<About />} />
             <Route path="/Terms" element={<Terms />} />
             <Route path="/Support" element={<Support />} />

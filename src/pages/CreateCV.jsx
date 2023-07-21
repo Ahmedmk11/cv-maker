@@ -1,7 +1,21 @@
+import Header from '../components/Header.jsx'
+import Footer from '../components/Footer.jsx'
+import '../styles/app.css'
+
 function CreateCV() {
     return (
         <>
-            <h1>Create</h1>
+            <Header
+                isSelected={{
+                    isSelected1: false,
+                    isSelected2: true,
+                    isSelected3: false,
+                }}
+            />
+            <div id='home-body'>
+                Hi
+            </div>
+            <Footer />
         </>
     )
 }
