@@ -5,7 +5,16 @@ import '../styles/app.css'
 function Home() {
     return (
         <>
-            <Header isSelected={{isSelected1: true, isSelected2: false, isSelected3: false}} />
+            <Header
+                isSelected={{
+                    isSelected1: true,
+                    isSelected2: false,
+                    isSelected3: false,
+                }}
+            />
+            <div id='home-body'>
+                Hi
+            </div>
             <Footer />
         </>
     )

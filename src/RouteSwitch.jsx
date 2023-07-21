@@ -1,14 +1,13 @@
 import React from 'react'
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom'
 
-import Home  from './pages/Home.jsx'
+import Home from './pages/Home.jsx'
 import CreateCV from './pages/CreateCV.jsx'
 import Templates from './pages/Templates.jsx'
 import PageNotFound from './pages/PageNotFound.jsx'
 import About from './pages/About.jsx'
 import Terms from './pages/Terms.jsx'
 import Support from './pages/Support.jsx'
-
 
 const RouteSwitch = () => {
     return (

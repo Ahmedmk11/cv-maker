@@ -2,11 +2,9 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 600;
-
   color-scheme: light dark;
-  color: #1A2B5B;
-  background-color: #CAD2C5;
-
+  color: #1a2b5b;
+  background-color: #cad2c5;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -16,17 +14,17 @@
 
 a {
   font-weight: 600;
-  color: #1A2B5B;
+  color: #1a2b5b;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #3459c0;
+  text-decoration: underline;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -34,6 +32,11 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  margin: 0%;
+}
+
+p {
+  margin: 0%;
 }
 
 @media (prefers-color-scheme: light) {
@@ -48,3 +51,5 @@ h1 {
     background-color: #f9f9f9;
   }
 }
+
+/*# sourceMappingURL=index.css.map */

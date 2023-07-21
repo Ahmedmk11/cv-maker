@@ -9,7 +9,7 @@ export default defineConfig({
         eslintPlugin({
             include: ['**/*.jsx', '**/*.js'],
             exclude: ['node_modules', 'dist'],
-        }),
+        })
     ],
     test: {
         globals: true,

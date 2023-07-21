@@ -11,10 +11,10 @@ describe('Button', () => {
     })
 
     it('Button calls onClick handler when clicked', async () => {
-        const user = userEvent.setup();
-        render(<Button />);
-        const button = screen.getByRole("button");
-        await user.click(button);
+        const user = userEvent.setup()
+        render(<Button />)
+        const button = screen.getByRole('button')
+        await user.click(button)
         // check for function call
     })
 

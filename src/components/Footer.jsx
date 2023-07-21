@@ -1,6 +1,6 @@
 import React from 'react'
 import '../styles/components.css'
-import UlLink from './Link.jsx';
+import UlLink from './Link.jsx'
 
 function Footer() {
     return (
@@ -23,10 +23,16 @@ function Footer() {
             <div>
                 <p>
                     <strong>Made by </strong>
-                    <a href="https://github.com/Ahmedmk11" target="_blank" rel="noreferrer">Ahmed Mahmoud</a>
+                    <a
+                        href="https://github.com/Ahmedmk11"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        Ahmed Mahmoud
+                    </a>
                 </p>
-                <p>Copyright © 
-                    <span id="starting-year"> 2023</span>
+                <p>
+                    Copyright ©<span id="starting-year"> 2023</span>
                     <span id="current-year"></span>
                     <span>. All rights reserved.</span>
                 </p>

@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import '../styles/components.css'
 
 function UlLink(props) {
     const { page, isSelected } = props
-    const classN = isSelected ? 'selected' : 'not-selected'
+    const classN = isSelected ? 'selected' : 'default-button'
     let dest = page
     if (page === 'Create CV') {
         dest = 'CreateCV'
@@ -20,12 +20,12 @@ function UlLink(props) {
 
 UlLink.propTypes = {
     page: PropTypes.string,
-    isSelected: PropTypes.bool
+    isSelected: PropTypes.bool,
 }
 
 UlLink.defaultProps = {
     page: 'Home',
-    isSelected: false
+    isSelected: false,
 }
 
 export default UlLink
