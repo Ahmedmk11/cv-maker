@@ -23,6 +23,7 @@ header div {
 }
 header .header-items {
   width: 25%;
+  min-width: fit-content;
 }
 header .header-items h1 {
   font-size: 35px;
@@ -33,7 +34,7 @@ header .header-items ul {
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  min-width: fit-content;
+  min-width: 300px;
   list-style-type: none;
 }
 header .header-items ul li {
@@ -42,7 +43,7 @@ header .header-items ul li {
 
 footer {
   background-color: #cdbabb;
-  height: 200px;
+  height: 250px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -93,51 +94,6 @@ footer #copyrights {
   height: fit-content;
   align-self: flex-start;
   margin-bottom: 0.65rem;
-}
-
-#home-body {
-  font-weight: 450;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-#home-body #home-body-top {
-  width: 75%;
-}
-#home-body #home-body-top img {
-  width: 450px;
-}
-#home-body #home-body-bottom {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-#home-body #home-body-bottom #home-body-bottom-left {
-  width: fit-content;
-  min-width: fit-content;
-  margin-right: 2rem;
-}
-#home-body #home-body-bottom #home-body-bottom-right {
-  width: 400px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  margin-left: 3rem;
-}
-#home-body #home-body-bottom #home-body-bottom-right button {
-  margin-bottom: 2rem;
-}
-#home-body #home-body-bottom #home-body-bottom-right span {
-  width: 100%;
-  min-width: 400px;
 }
 
 .selected a {

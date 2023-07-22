@@ -3,7 +3,6 @@ import Footer from '../components/Footer.jsx'
 import Button from '../components/Button.jsx'
 import HomePic from '../assets/images/home.png'
 import { Link } from 'react-router-dom'
-import '../styles/app.css'
 
 function Home() {
     const handleClick = () => {

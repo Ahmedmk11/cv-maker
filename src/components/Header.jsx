@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import '../styles/components.css'
 import UlLink from './Link.jsx'
 
 function Header(props) {

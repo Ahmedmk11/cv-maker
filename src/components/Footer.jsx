@@ -1,5 +1,4 @@
 import React from 'react'
-import '../styles/components.css'
 import UlLink from './Link.jsx'
 
 function Footer() {

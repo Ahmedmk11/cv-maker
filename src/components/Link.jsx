@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import '../styles/components.css'
 
 function UlLink(props) {
     const { page, isSelected } = props
