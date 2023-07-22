@@ -1,25 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import '../styles/components'
+import '../styles/components.css'
 
 function Button(props) {
-    const { children, className, onClick } = props
+    const { name, classN, onClick } = props
     return (
-        <button className={className} onClick={onClick}>
-            {children}
+        <button className={classN} onClick={onClick}>
+            {name}
         </button>
     )
 }
 
 Button.propTypes = {
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string,
+    name: PropTypes.string,
+    classN: PropTypes.string,
     onClick: PropTypes.func,
 }
 
 Button.defaultProps = {
-    children: 'Click me!',
-    className: 'default-btn',
+    name: 'Click me!',
+    classN: 'default-btn',
     onClick: () => {
         console.log('I am clicked!')
     },

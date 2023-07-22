@@ -5,7 +5,7 @@ import '../styles/components.css'
 
 function UlLink(props) {
     const { page, isSelected } = props
-    const classN = isSelected ? 'selected' : 'default-button'
+    const classN = isSelected ? 'selected' : 'default-link'
     let dest = page
     if (page === 'Create CV') {
         dest = 'CreateCV'

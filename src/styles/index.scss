@@ -2,7 +2,8 @@
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 600;
-
+    height: 100%;
+    min-height: fit-content;
     color-scheme: light dark;
     color: #1a2b5b;
     background-color: #cad2c5;
@@ -12,6 +13,11 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
+}
+
+#root {
+    height: 100%;
+    min-height: fit-content;
 }
 
 a {
@@ -26,9 +32,10 @@ a:hover {
 }
 
 body {
+    height: 100%;
+    min-height: fit-content;
     margin: 0;
     min-width: 320px;
-    min-height: 100vh;
 }
 
 h1 {
