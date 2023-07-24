@@ -9,34 +9,26 @@ function CCVPersonal() {
             <div className="form-personal">
                 <form>
                     <fieldset>
-                        <legend><span className="number">1</span> Candidate Info</legend>
-                        <input type="text" name="field1" placeholder="Your Name *" />
-                        <input type="email" name="field2" placeholder="Your Email *" />
-                        <textarea name="field3" placeholder="About yourself"></textarea>
-                        <label htmlFor="job">Interests:</label>
-                        <select id="job" name="field4">
-                            <optgroup label="Indoors">
-                                <option value="fishkeeping">Fishkeeping</option>
-                                <option value="reading">Reading</option>
-                                <option value="boxing">Boxing</option>
-                                <option value="debate">Debate</option>
-                                <option value="gaming">Gaming</option>
-                                <option value="snooker">Snooker</option>
-                                <option value="other_indoor">Other</option>
-                            </optgroup>
-                            <optgroup label="Outdoors">
-                                <option value="football">Football</option>
-                                <option value="swimming">Swimming</option>
-                                <option value="fishing">Fishing</option>
-                                <option value="climbing">Climbing</option>
-                                <option value="cycling">Cycling</option>
-                                <option value="other_outdoor">Other</option>
-                            </optgroup>
-                        </select>      
+                        <legend><span className="number">1</span> <sup>*</sup>Personal Info</legend>
+                        <label htmlFor="fname">First Name</label>
+                        <input id='fname' type="text" name="fname" placeholder="John" />
+                        <label htmlFor="lname">Last Name</label>
+                        <input id='lname' type="text" name="lname" placeholder="Smith" />
+                        <label htmlFor="email">Email Address</label>
+                        <input id='email' type="email" name="email" placeholder="johnsmith@email.com" />
+                        <label htmlFor="phone">Phone Number</label>
+                        <input id='phone' type="tel" name="phone" placeholder="(555) 555-5555" />
+                        <label htmlFor="city">City</label>
+                        <input id='city' type="text" name="city" placeholder="Cairo" />
+                        <label htmlFor="country">Country</label>
+                        <input id='country' type="text" name="country" placeholder="Egypt" />
                     </fieldset>
                     <fieldset>
                         <legend><span className="number">2</span> Additional Info</legend>
-                        <textarea name="field3" placeholder="About Your School"></textarea>
+                        <label htmlFor="linkedIn"></label>
+                        <input type="text" name="linkedIn" id='linkedIn' placeholder="https://www.linkedin.com/in/user-id/" />
+                        <label htmlFor="website"></label>
+                        <input type="text" name="website" id='website' placeholder="https://github.com/ahmedmk11" />
                     </fieldset>
                 </form>
             </div>

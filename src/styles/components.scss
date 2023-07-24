@@ -214,8 +214,8 @@ footer {
 }
 
 .form-personal{
-	min-width: fit-content;
 	width: 1000px;
+    height: fit-content;
 	padding: 10px 20px;
 	padding: 20px;
 	background: #f4f7f8;
@@ -237,14 +237,14 @@ footer {
 	display: block;
 	margin-bottom: 8px;
 }
-.form-personal input[type="text"],
-.form-personal input[type="date"],
-.form-personal input[type="datetime"],
-.form-personal input[type="email"],
-.form-personal input[type="number"],
-.form-personal input[type="search"],
-.form-personal input[type="time"],
-.form-personal input[type="url"],
+.form-personal input,
+.form-personal input,
+.form-personal input,
+.form-personal input,
+.form-personal input,
+.form-personal input,
+.form-personal input,
+.form-personal input,
 .form-personal textarea,
 .form-personal select {
 	font-family: Georgia, "Times New Roman", Times, serif;
@@ -265,14 +265,14 @@ footer {
 	box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
 	margin-bottom: 30px;
 }
-.form-personal input[type="text"]:focus,
-.form-personal input[type="date"]:focus,
-.form-personal input[type="datetime"]:focus,
-.form-personal input[type="email"]:focus,
-.form-personal input[type="number"]:focus,
-.form-personal input[type="search"]:focus,
-.form-personal input[type="time"]:focus,
-.form-personal input[type="url"]:focus,
+.form-personal input:focus,
+.form-personal input:focus,
+.form-personal input:focus,
+.form-personal input:focus,
+.form-personal input:focus,
+.form-personal input:focus,
+.form-personal input:focus,
+.form-personal input:focus,
 .form-personal textarea:focus,
 .form-personal select:focus{
 	background: #d2d9dd;
@@ -320,9 +320,20 @@ button
     -ms-transition: 200ms ease-in-out;
     -o-transition: 200ms ease-in-out;
 }
+
 .form-personal input[type="submit"]:hover,
 .form-personal input[type="button"]:hover,
 button:hover
 {
 	background: #1e4b70;
+}
+
+textarea {
+    resize: vertical;
+    max-height: 280px;
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    -webkit-filter: invert(1);
 }
