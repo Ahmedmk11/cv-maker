@@ -4,10 +4,7 @@ import PropTypes from 'prop-types'
 function Progress(props) {
     const { progress } = props
 
-    return (
-        <>
-        </>
-    )
+    return <></>
 }
 
 Progress.propTypes = {

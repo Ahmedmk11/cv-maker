@@ -2,6 +2,9 @@ import Header from '../components/Header.jsx'
 import Footer from '../components/Footer.jsx'
 
 function About() {
+    document.body.scrollTop = 0
+    document.documentElement.scrollTop = 0
+
     return (
         <>
             <Header
@@ -11,9 +14,7 @@ function About() {
                     isSelected3: false,
                 }}
             />
-            <div id='home-body'>
-                Hi
-            </div>
+            <div id="home-body">Hi</div>
             <Footer />
         </>
     )

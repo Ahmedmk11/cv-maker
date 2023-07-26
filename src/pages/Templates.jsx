@@ -2,6 +2,8 @@ import Header from '../components/Header.jsx'
 import Footer from '../components/Footer.jsx'
 
 function Templates() {
+    document.body.scrollTop = 0
+    document.documentElement.scrollTop = 0
     return (
         <>
             <Header
@@ -11,9 +13,7 @@ function Templates() {
                     isSelected3: true,
                 }}
             />
-            <div id='home-body'>
-                Hi
-            </div>
+            <div id="home-body">Hi</div>
             <Footer />
         </>
     )

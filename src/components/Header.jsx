@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import UlLink from './Link.jsx'
+import { Link } from 'react-router-dom'
 
 function Header(props) {
     const { isSelected } = props
@@ -9,10 +10,14 @@ function Header(props) {
     return (
         <header>
             <div>
-                <div className='header-items'>
-                    <h1>Resumio</h1>
+                <div className="header-items">
+                    <h1>
+                        <Link className="header" to={`/home`}>
+                            Resumio
+                        </Link>
+                    </h1>
                 </div>
-                <div className='header-items'>
+                <div className="header-items">
                     <ul>
                         <UlLink page={'Home'} isSelected={isSelected1} />
                         <UlLink page={'Create CV'} isSelected={isSelected2} />

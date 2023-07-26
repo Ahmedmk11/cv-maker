@@ -1,13 +1,18 @@
 import React from 'react'
 import UlLink from './Link.jsx'
+import { Link } from 'react-router-dom'
 
 function Footer() {
     return (
         <footer>
             <div>
-                <div id='footer-items'>
+                <div id="footer-items">
                     <div>
-                        <h1>Resumio</h1>
+                        <h1>
+                            <Link className="header" to={`/home`}>
+                                Resumio
+                            </Link>
+                        </h1>
                     </div>
                     <div>
                         <ul>
@@ -20,7 +25,7 @@ function Footer() {
                         </ul>
                     </div>
                 </div>
-                <div id='copyrights'>
+                <div id="copyrights">
                     <p>
                         <strong>Made by </strong>
                         <a
@@ -28,8 +33,9 @@ function Footer() {
                             target="_blank"
                             rel="noreferrer"
                         >
-                            Ahmed Mahmoud.&#160;
+                            Ahmed Mahmoud
                         </a>
+                        .&#160;
                     </p>
                     <p>
                         Copyright ©<span id="starting-year"> 2023</span>

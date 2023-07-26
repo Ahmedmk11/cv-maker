@@ -9,7 +9,6 @@ function UlLink(props) {
     if (page === 'Create CV') {
         dest = 'CreateCV/Personal-Details'
     }
-
     return (
         <li className={classN}>
             <Link to={`/${dest}`}>{page}</Link>
