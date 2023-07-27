@@ -75,8 +75,11 @@
 #createcv-body h1 {
   margin-bottom: 50px;
 }
+#createcv-body .first-legend {
+  margin-top: 10px !important;
+}
 #createcv-body legend {
-  margin-top: 20px;
+  margin-top: 30px !important;
 }
 
 /*# sourceMappingURL=pages.css.map */

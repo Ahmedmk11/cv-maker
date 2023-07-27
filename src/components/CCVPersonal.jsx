@@ -8,7 +8,7 @@ function CCVPersonal() {
             <h1>Personal Details</h1>
             <div className="form">
                 <form>
-                    <legend>
+                    <legend className='first-legend'>
                         <span className="number">1</span> <sup>*</sup>Personal
                         Info
                     </legend>

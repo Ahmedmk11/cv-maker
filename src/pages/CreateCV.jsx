@@ -75,7 +75,7 @@ function CreateCV(props) {
                 })()}
                 <Button
                     name={count === 2 ? 'Finish' : 'Next Step'}
-                    onClick={nextClick}
+                    click={nextClick}
                 />
             </div>
             <Footer />

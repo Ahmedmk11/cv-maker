@@ -52,7 +52,7 @@ function Home() {
                         <Button
                             name={'Start Creating Now!'}
                             classN={'default-button'}
-                            onClick={handleClick}
+                            click={handleClick}
                         />
                         <span>
                             By clicking &quot;Start Creating Now!&quot;, you

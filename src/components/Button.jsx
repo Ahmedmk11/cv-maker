@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import plusIcn from '../assets/images/icons/plus.svg'
 
 function Button(props) {
-    const { name, classN, onClick } = props
+    const { name, classN, click } = props
     return (
-        <button className={classN} onClick={onClick}>
+        <button className={classN} onClick={click}>
             {classN === 'plus' ? (
                 <img id="plus-icn" src={plusIcn} alt="plus icon"></img>
             ) : null}
@@ -17,13 +17,13 @@ function Button(props) {
 Button.propTypes = {
     name: PropTypes.string,
     classN: PropTypes.string,
-    onClick: PropTypes.func,
+    click: PropTypes.func,
 }
 
 Button.defaultProps = {
     name: 'Click me!',
     classN: 'default-btn',
-    onClick: () => {
+    click: () => {
         console.log('I am clicked!')
     },
 }
