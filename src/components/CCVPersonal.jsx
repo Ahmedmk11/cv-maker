@@ -13,6 +13,7 @@ function CCVPersonal() {
                         Info
                     </legend>
                     <fieldset>
+                        <hr />
                         <label htmlFor="fname">First Name</label>
                         <input
                             id="fname"
@@ -60,6 +61,7 @@ function CCVPersonal() {
                         <span className="number">2</span> Additional Info
                     </legend>
                     <fieldset>
+                        <hr />
                         <label htmlFor="linkedIn"></label>
                         <input
                             type="text"

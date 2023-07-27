@@ -403,4 +403,8 @@ textarea {
   margin-right: 10px;
 }
 
+.hidden {
+  display: none !important;
+}
+
 /*# sourceMappingURL=components.css.map */
