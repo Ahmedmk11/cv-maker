@@ -274,7 +274,7 @@ form {
   color: #8a97a0;
   -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
-  margin-bottom: 30px;
+  margin-bottom: 28px;
 }
 
 .form input:focus,
@@ -405,6 +405,13 @@ textarea {
 
 .hidden {
   display: none !important;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-bottom: 28px;
+  margin-top: 8px;
 }
 
 /*# sourceMappingURL=components.css.map */
