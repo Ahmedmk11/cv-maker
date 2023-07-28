@@ -2,15 +2,18 @@ import React from 'react'
 import { useState , useEffect , useCallback} from 'react'
 import Progress from '../components/Progress.jsx'
 import Button from '../components/Button.jsx'
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 
 function CCVExperience() {
-    const { register: register1, handleSubmit: handleSubmit1, formState: { errors: errors1 } } = useForm();
-    const { register: register2, handleSubmit: handleSubmit2, formState: { errors: errors2 } } = useForm();
+    const { register: register1, handleSubmit: handleSubmit1, reset: reset1, formState: { errors: errors1 } } = useForm();
+    const { register: register2, handleSubmit: handleSubmit2, reset: reset2, formState: { errors: errors2 } } = useForm();
+    const { register: register3, handleSubmit: handleSubmit3, reset: reset3, formState: { errors: errors3 } } = useForm();
     const [flagW, setFlagW] = useState(0)
     const [flagS, setFlagS] = useState(0)
+    const [flagC, setFlagC] = useState(0)
     const [jobs, setJobs] = useState([])
     const [schools, setSchools] = useState([])
+    const [skills, setSkills] = useState([])
     const [jobData, setJobData] = useState({
         cname: '',
         jtitle: '',
@@ -30,48 +33,93 @@ function CCVExperience() {
         scountry: '',
         descSchool: '',
     })
-
+    const [skillsData, setSkillsData] = useState({
+        certificates: '',
+        skills: '',
+        courses: '',
+        interests: '',
+        references: '',
+        languages: '',
+    })
     const saveWork = (event) => {
-        event.preventDefault()
-        setFlagW(0)
         setJobs([...jobs, jobData])
+        setJobData({
+            cname: '',
+            jtitle: '',
+            startDate: '',
+            endDate: '',
+            wcity: '',
+            wcountry: '',
+            desc: '',
+        })
+        reset1()
+        setFlagW(0)
     }
-    
     const saveSchool = (event) => {
-        event.preventDefault()
-        setFlagS(0)
         setSchools([...schools, schoolData])
+        setSchoolData({
+            uni: '',
+            degree: '',
+            major: '',
+            startDateSchool: '',
+            endDateSchool: '',
+            scity: '',
+            scountry: '',
+            descSchool: '',
+        })
+        reset2()
+        setFlagS(0)
     }
-
+    const saveSkills = (event) => {
+        setSkills([...skills, skillsData])
+        setSkillsData({
+            certificates: '',
+            skills: '',
+            courses: '',
+            interests: '',
+            references: '',
+            languages: '',
+        })
+        reset3()
+        setFlagC(0)
+    }
     const addWork = useCallback((event) => {
         event.preventDefault()
         setFlagW(1)
         setButton1(<Button id="done-button-1" classN="plus" name='Done' type='submit' />)
     }, [])
-    
     const addSchool = useCallback((event) => {
         event.preventDefault()
         setFlagS(1)
         setButton2(<Button id="done-button-2" classN="plus" name='Done' type='submit' />)
     }, [])
-
+    const addSkill = useCallback((event) => {
+        event.preventDefault()
+        setFlagC(1)
+        setButton3(<Button id="done-button-3" classN="plus" name='Done' type='submit' />)
+    }, [])
     function handleChange(event) {
         const { name, value } = event.target;
         setJobData({ ...jobData, [name]: value });
     }
-
     function handleSchoolChange(event) {
         const { name, value } = event.target;
         setSchoolData({ ...schoolData, [name]: value });
     }
-    
+    function handleSkillChange(event) {
+        const { name, value } = event.target;
+        setSkillsData({ ...skillsData, [name]: value });
+    }
+
     const [button1, setButton1] = useState(<Button classN="plus" name='Add Work Experience' click={addWork} />)    
     const [button2, setButton2] = useState(<Button classN="plus" name='Add School' click={addSchool} />)    
+    const [button3, setButton3] = useState(<Button classN="plus" name='Add Skills and Certifications' click={addSkill} />)    
 
     useEffect(() => {
         console.log(jobs)
         console.log(schools)
-    }, [jobs, schools])
+        console.log(skills)
+    }, [jobs, schools, skills])
 
     useEffect(() => {
         if (flagW === 1) {
@@ -90,6 +138,15 @@ function CCVExperience() {
             setButton2(<Button classN="plus" name='Add School' click={addSchool} />)
         }
     }, [flagS, addSchool])
+    
+    useEffect(() => {
+        if (flagC === 1) {
+            document.getElementById('skillsField').hidden = false
+        } else if (flagC === 0) {
+            document.getElementById('skillsField').hidden = true
+            setButton3(<Button classN="plus" name='Add Skills and Certifications' click={addSkill} />)
+        }
+    }, [flagC, addSkill])
 
     return <>
         <Progress progress={'1'} />
@@ -262,6 +319,64 @@ function CCVExperience() {
                     </textarea>
                 </fieldset>
                 {button2}
+            </form>
+
+            <form onSubmit={handleSubmit3(saveSkills)}>
+                <legend>
+                    <span className="number">3</span>Skills & Certifications
+                </legend>
+                <fieldset id='skillsField' className="field" hidden>
+                    <hr />
+                    <label htmlFor="certificates">Certifications</label>
+                    <textarea
+                        id="certificates"
+                        name='certificates'
+                        placeholder="Any certifications?"
+                        value={skillsData.certificates}
+                        onChange={handleSkillChange}>
+                    </textarea>
+                    <label htmlFor="skills">Skills</label>
+                    <textarea
+                        id="skills"
+                        name='skills'
+                        placeholder="Any skills?"
+                        value={skillsData.skills}
+                        onChange={handleSkillChange}>
+                    </textarea>
+                    <label htmlFor="courses">Courses</label>
+                    <textarea
+                        id="courses"
+                        name='courses'
+                        placeholder="Any courses?"
+                        value={skillsData.courses}
+                        onChange={handleSkillChange}>
+                    </textarea>
+                    <label htmlFor="interests">Interests</label>
+                    <textarea
+                        id="interests"
+                        name='interests'
+                        placeholder="Any interests?"
+                        value={skillsData.interests}
+                        onChange={handleSkillChange}>
+                    </textarea>
+                    <label htmlFor="languages">Languages</label>
+                    <textarea
+                        id="languages"
+                        name='languages'
+                        placeholder="Any languages?"
+                        value={skillsData.languages}
+                        onChange={handleSkillChange}>
+                    </textarea>
+                    <label htmlFor="references">References</label>
+                    <textarea
+                        id="references"
+                        name='references'
+                        placeholder="Any references?"
+                        value={skillsData.references}
+                        onChange={handleSkillChange}>
+                    </textarea>
+                </fieldset>
+                {button3}
             </form>
         </div>
     </>;
