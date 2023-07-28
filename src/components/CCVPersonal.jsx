@@ -11,9 +11,9 @@ function CCVPersonal() {
                     <legend className='first-legend'>
                         <span className="number">1</span> <sup>*</sup>Personal
                         Info
+                        <hr />
                     </legend>
                     <fieldset>
-                        <hr />
                         <label htmlFor="fname">First Name</label>
                         <input
                             id="fname"

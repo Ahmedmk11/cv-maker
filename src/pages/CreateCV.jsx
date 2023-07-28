@@ -24,10 +24,12 @@ function CreateCV(props) {
         if (count === 0) {
             document.getElementById('back-btn').src = backPicDeAct
             document.getElementById('back-btn').classList.add('no-hover')
+            document.getElementById('previous-p').classList.add('no-hover')
             navigate('/CreateCV/Personal-Details')
         } else if (count === 1) {
             document.getElementById('back-btn').src = backPicAct
             document.getElementById('back-btn').classList.remove('no-hover')
+            document.getElementById('previous-p').classList.remove('no-hover')
             navigate('/CreateCV/Experience-and-Education')
         } else if (count === 2) {
             navigate('/CreateCV/Template')
@@ -77,7 +79,7 @@ function CreateCV(props) {
                     name={count === 2 ? 'Finish' : 'Next Step   \u203A'}
                     click={nextClick}
                 />
-                <p className='previous-p' onClick={prevClick}>&#8249;   Previous Step</p>
+                <p id='previous-p' onClick={prevClick}>&#8249;   Previous Step</p>
             </div>
             <Footer />
         </>

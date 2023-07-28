@@ -2,7 +2,8 @@ import React from 'react'
 import { useState , useEffect , useCallback} from 'react'
 import Progress from '../components/Progress.jsx'
 import Button from '../components/Button.jsx'
-import { set, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import Section from './Section.jsx';
 
 function CCVExperience() {
     const { register: register1, handleSubmit: handleSubmit1, reset: reset1, formState: { errors: errors1 } } = useForm();
@@ -71,7 +72,7 @@ function CCVExperience() {
         setFlagS(0)
     }
     const saveSkills = (event) => {
-        setSkills([...skills, skillsData])
+        setSkills([skillsData])
         setSkillsData({
             certificates: '',
             skills: '',
@@ -98,6 +99,18 @@ function CCVExperience() {
         setFlagC(1)
         setButton3(<Button id="done-button-3" classN="plus" name='Done' type='submit' />)
     }, [])
+    const cancelJob = (event) => {
+        event.preventDefault()
+        setFlagW(0)
+    }
+    const cancelSchool = (event) => {
+        event.preventDefault()
+        setFlagS(0)
+    }
+    const cancelSkills = (event) => {
+        event.preventDefault()
+        setFlagC(0)
+    }
     function handleChange(event) {
         const { name, value } = event.target;
         setJobData({ ...jobData, [name]: value });
@@ -115,11 +128,11 @@ function CCVExperience() {
     const [button2, setButton2] = useState(<Button classN="plus" name='Add School' click={addSchool} />)    
     const [button3, setButton3] = useState(<Button classN="plus" name='Add Skills and Certifications' click={addSkill} />)    
 
-    useEffect(() => {
-        console.log(jobs)
-        console.log(schools)
-        console.log(skills)
-    }, [jobs, schools, skills])
+    // useEffect(() => {
+    //     console.log(jobs)
+    //     console.log(schools)
+    //     console.log(skills)
+    // }, [jobs, schools, skills])
 
     useEffect(() => {
         if (flagW === 1) {
@@ -155,9 +168,22 @@ function CCVExperience() {
             <form onSubmit={handleSubmit1(saveWork)}>
                 <legend className='first-legend'>
                     <span className="number">1</span>Work Experience
-                </legend>
-                <fieldset id='workField' className="field" hidden>
                     <hr />
+                </legend>
+                <div className='sections'>
+                    {jobs.map((job, index) => (
+                        <>
+                            <Section key={`job-${index}`} type='work' data={
+                                {
+                                    name: job.cname,
+                                    start: job.startDate,
+                                    end: job.endDate
+                                }
+                            } />
+                        </>
+                    ))}
+                </div>
+                <fieldset id='workField' className="field" hidden>
                     <label htmlFor="companyName">Company Name</label>
                     <input
                         id="companyName"
@@ -229,14 +255,28 @@ function CCVExperience() {
                     </textarea>
                 </fieldset>
                 {button1}
+                {(button1.props.name === 'Done') && <Button classN="plus" name='Cancel' click={cancelJob} />}
             </form>
 
             <form onSubmit={handleSubmit2(saveSchool)}>
                 <legend>
                     <span className="number">2</span>Education
-                </legend>
-                <fieldset id='schoolField' className="field" hidden>
                     <hr />
+                </legend>
+                <div className='sections'>
+                    {schools.map((school, index) => (
+                        <>
+                            <Section key={`school-${index}`} type='education' data={
+                                {
+                                    name: school.cname,
+                                    start: school.startDate,
+                                    end: school.endDate
+                                }
+                            } />
+                        </>
+                    ))}
+                </div>
+                <fieldset id='schoolField' className="field" hidden>
                     <label htmlFor="uni">University Name</label>
                     <input
                         id="uni"
@@ -319,64 +359,124 @@ function CCVExperience() {
                     </textarea>
                 </fieldset>
                 {button2}
+                {(button2.props.name === 'Done') && <Button classN="plus" name='Cancel' click={cancelSchool} />}
             </form>
 
             <form onSubmit={handleSubmit3(saveSkills)}>
                 <legend>
                     <span className="number">3</span>Skills & Certifications
-                </legend>
-                <fieldset id='skillsField' className="field" hidden>
                     <hr />
+                </legend>
+                <div className='sections'>
+                    {skills.map((skill, index) => (
+                        <>
+                            <Section key={`skill-${index}`} type='skills' data={
+                                {
+                                    certificates: skill.certificates.split(',').map(item => item.trim()),
+                                    skills: skill.skills.split(',').map(item => item.trim()),
+                                    courses: skill.courses.split(',').map(item => item.trim()),
+                                    interests: skill.interests.split(',').map(item => item.trim()),
+                                    references: skill.references.split(',').map(item => item.trim()),
+                                    languages: skill.languages.split(',').map(item => item.trim()),
+                                }
+                            } />
+                        </>
+                    ))}
+                </div>
+                <fieldset id='skillsField' className="field" hidden>
                     <label htmlFor="certificates">Certifications</label>
                     <textarea
                         id="certificates"
                         name='certificates'
+                        {...register3('certificates', {
+                            pattern: {
+                                value: /^(\s*\w+\s*,)*\s*\w+\s*$/,
+                            }
+                        })}
                         placeholder="Any certifications?"
+                        style={{ marginBottom: errors3.certificates ? '0' : '28px' }}
                         value={skillsData.certificates}
                         onChange={handleSkillChange}>
                     </textarea>
+                    {errors3 && errors3.certificates && <p className="error-message">Separate values by a comma〝,〞</p>}
                     <label htmlFor="skills">Skills</label>
                     <textarea
                         id="skills"
                         name='skills'
+                        {...register3('skills', {
+                            pattern: {
+                                value: /^(\s*\w+\s*,)*\s*\w+\s*$/,
+                            }
+                        })}
                         placeholder="Any skills?"
+                        style={{ marginBottom: errors3.skills ? '0' : '28px' }}
                         value={skillsData.skills}
                         onChange={handleSkillChange}>
                     </textarea>
+                    {errors3 && errors3.skills && <p className="error-message">Separate values by a comma〝,〞</p>}
                     <label htmlFor="courses">Courses</label>
                     <textarea
                         id="courses"
                         name='courses'
+                        {...register3('courses', {
+                            pattern: {
+                                value: /^(\s*\w+\s*,)*\s*\w+\s*$/,
+                            }
+                        })}
                         placeholder="Any courses?"
+                        style={{ marginBottom: errors3.courses ? '0' : '28px' }}
                         value={skillsData.courses}
                         onChange={handleSkillChange}>
                     </textarea>
+                    {errors3 && errors3.courses && <p className="error-message">Separate values by a comma〝,〞</p>}
                     <label htmlFor="interests">Interests</label>
                     <textarea
                         id="interests"
                         name='interests'
+                        {...register3('interests', {
+                            pattern: {
+                                value: /^(\s*\w+\s*,)*\s*\w+\s*$/,
+                            }
+                        })}
                         placeholder="Any interests?"
+                        style={{ marginBottom: errors3.interests ? '0' : '28px' }}
                         value={skillsData.interests}
                         onChange={handleSkillChange}>
                     </textarea>
+                    {errors3 && errors3.interests && <p className="error-message">Separate values by a comma〝,〞</p>}
                     <label htmlFor="languages">Languages</label>
                     <textarea
                         id="languages"
                         name='languages'
+                        {...register3('languages', {
+                            pattern: {
+                                value: /^(\s*\w+\s*,)*\s*\w+\s*$/,
+                            }
+                        })}
                         placeholder="Any languages?"
+                        style={{ marginBottom: errors3.languages ? '0' : '28px' }}
                         value={skillsData.languages}
                         onChange={handleSkillChange}>
                     </textarea>
+                    {errors3 && errors3.languages && <p className="error-message">Separate values by a comma〝,〞</p>}
                     <label htmlFor="references">References</label>
                     <textarea
                         id="references"
                         name='references'
+                        {...register3('references', {
+                            pattern: {
+                                value: /^(\s*\w+\s*,)*\s*\w+\s*$/,
+                            }
+                        })}
                         placeholder="Any references?"
+                        style={{ marginBottom: errors3.references ? '0' : '28px' }}
                         value={skillsData.references}
                         onChange={handleSkillChange}>
                     </textarea>
+                    {errors3 && errors3.references && <p className="error-message">Separate values by a comma〝,〞</p>}
                 </fieldset>
                 {button3}
+                {(button3.props.name === 'Done') && <Button classN="plus" name='Cancel' click={cancelSkills} />}
             </form>
         </div>
     </>;
