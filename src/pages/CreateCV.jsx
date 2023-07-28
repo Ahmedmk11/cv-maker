@@ -74,9 +74,10 @@ function CreateCV(props) {
                     }
                 })()}
                 <Button
-                    name={count === 2 ? 'Finish' : 'Next Step'}
+                    name={count === 2 ? 'Finish' : 'Next Step   \u203A'}
                     click={nextClick}
                 />
+                <p className='previous-p' onClick={prevClick}>&#8249;   Previous Step</p>
             </div>
             <Footer />
         </>

@@ -409,3 +409,12 @@ textarea {
     margin-bottom: 28px;
     margin-top: 8px;
 }
+
+.previous-p {
+    color: #7b7a7a;
+    font-size: 14px;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+}
