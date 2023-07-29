@@ -33,14 +33,14 @@ function CreateCV(props) {
             document.getElementById('back-btn').src = backPicDeAct
             document.getElementById('back-btn').classList.add('no-hover')
             document.getElementById('previous-p').classList.add('no-hover')
-            navigate('/CreateCV/Personal-Details')
+            navigate('/create/personal-details')
         } else if (count === 1) {
             document.getElementById('back-btn').src = backPicAct
             document.getElementById('back-btn').classList.remove('no-hover')
             document.getElementById('previous-p').classList.remove('no-hover')
-            navigate('/CreateCV/Experience-and-Education')
+            navigate('/create/experience-and-education')
         } else if (count === 2) {
-            navigate('/CreateCV/Template')
+            navigate('/create/template')
         } else if (count === 3) {
             navigate('/')
         }

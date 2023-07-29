@@ -13,23 +13,23 @@ const RouteSwitch = () => {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/Home" element={<Home />} />
-            <Route path="/CreateCV">
+            <Route path="/home" element={<Home />} />
+            <Route path="/create">
                 <Route
-                    path="Personal-Details"
+                    path="personal-details"
                     element={<CreateCV stage={'0'} />}
                 />
                 <Route
-                    path="Experience-and-Education"
+                    path="experience-and-education"
                     element={<CreateCV stage={'1'} />}
                 />
-                <Route path="Template" element={<CreateCV stage={'2'} />} />
+                <Route path="template" element={<CreateCV stage={'2'} />} />
             </Route>
-            <Route path="/Templates" element={<Templates />} />
+            <Route path="/templates" element={<Templates />} />
             <Route path="*" element={<PageNotFound />} />
-            <Route path="/About" element={<About />} />
-            <Route path="/Terms" element={<Terms />} />
-            <Route path="/Support" element={<Support />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/support" element={<Support />} />
         </Routes>
     )
 }

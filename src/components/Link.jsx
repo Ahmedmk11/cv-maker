@@ -7,7 +7,7 @@ function UlLink(props) {
     const classN = isSelected ? 'selected' : 'default-link'
     let dest = page
     if (page === 'Create CV') {
-        dest = 'CreateCV/Personal-Details'
+        dest = 'create/personal-details'
     }
     return (
         <li className={classN}>
