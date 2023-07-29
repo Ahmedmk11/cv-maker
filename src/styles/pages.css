@@ -202,4 +202,30 @@
   cursor: pointer;
 }
 
+#terms-body {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+#terms-body h1 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+#terms-body h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+#terms-body p {
+  margin-bottom: 10px;
+  text-align: justify;
+}
+#terms-body ul {
+  margin-bottom: 10px;
+  list-style-type: disc;
+  padding-left: 40px;
+}
+#terms-body ul li {
+  margin-bottom: 5px;
+}
+
 /*# sourceMappingURL=pages.css.map */
