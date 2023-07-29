@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import React from 'react'
-import { useState , useEffect , useCallback, useContext} from 'react'
+import { useState , useEffect , useCallback, useContext, useLayoutEffect, useRef } from 'react'
 import Progress from '../components/Progress.jsx'
 import Button from '../components/Button.jsx'
 import { useForm } from 'react-hook-form';
@@ -293,6 +293,22 @@ function CCVExperience() {
             }
         }
     }
+
+    const scrollY = useRef(window.scrollY);
+
+    useLayoutEffect(() => {
+        const handleScroll = () => {
+            scrollY.current = window.scrollY;
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    useLayoutEffect(() => {
+        window.scrollTo(0, scrollY.current);
+    });
 
     return (
         <>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useLayoutEffect, useRef } from 'react';
 import Progress from '../components/Progress.jsx'
 import Button from '../components/Button.jsx'
 import DataContext from '../components/DataContext.jsx'
@@ -9,6 +9,22 @@ function CCVTemplate() {
     const [button1, setButton1] = useState(<Button classN="plus" name='Choose' isSubmit={false} />)
     const [button2, setButton2] = useState(<Button classN="plus" name='Choose' isSubmit={false} />)
     const { template, setTemplate } = useContext(DataContext)
+
+    const scrollY = useRef(window.scrollY);
+
+    useLayoutEffect(() => {
+        const handleScroll = () => {
+            scrollY.current = window.scrollY;
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    useLayoutEffect(() => {
+        window.scrollTo(0, scrollY.current);
+    });
 
     const chooseTemplate = (event) => {
         document.querySelectorAll('.temp-item').forEach(item => {
