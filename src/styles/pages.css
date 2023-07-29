@@ -228,4 +228,30 @@
   margin-bottom: 5px;
 }
 
+#about-body {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+#about-body h1 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+#about-body h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+#about-body p {
+  margin-bottom: 10px;
+  text-align: justify;
+}
+#about-body ul {
+  margin-bottom: 10px;
+  list-style-type: disc;
+  padding-left: 40px;
+}
+#about-body ul li {
+  margin-bottom: 5px;
+}
+
 /*# sourceMappingURL=pages.css.map */

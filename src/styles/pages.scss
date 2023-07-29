@@ -235,3 +235,34 @@
         }
     }
 }
+
+#about-body {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+
+    h1 {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    h2 {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        margin-bottom: 10px;
+        text-align: justify;
+    }
+
+    ul {
+        margin-bottom: 10px;
+        list-style-type: disc;
+        padding-left: 40px;
+
+        li {
+            margin-bottom: 5px;
+        }
+    }
+}
