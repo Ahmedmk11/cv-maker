@@ -1,13 +1,38 @@
 import React from 'react'
+import { useState } from 'react'
 import Progress from '../components/Progress.jsx'
+import Button from '../components/Button.jsx'
+import { useForm } from 'react-hook-form';
 
 function CCVPersonal() {
+    const { handleSubmit, reset } = useForm();
+    const [personalData, setPersonalData] = useState({
+        fname: '',
+        lname: '',
+        email: '',
+        phone: '',
+        city: '',
+        country: '',
+        linkedin: '',
+        website: '',
+    })
+
+    function handleChange(event) {
+        event.target.setCustomValidity('')
+        const { name, value } = event.target;
+        setPersonalData({ ...personalData, [name]: value });
+    }
+
+    function savePersonal() {
+        console.log('submitted')
+    }
+
     return (
         <>
             <Progress progress={'0'} />
             <h1>Personal Details</h1>
             <div className="form">
-                <form>
+                <form onSubmit={handleSubmit(savePersonal)}>
                     <legend className='first-legend'>
                         <span className="number">1</span> <sup>*</sup>Personal
                         Info
@@ -20,6 +45,11 @@ function CCVPersonal() {
                             type="text"
                             name="fname"
                             placeholder="John"
+                            required
+                            value={personalData.fname}
+                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid name')}
+                            pattern='[A-Za-z]+'
+                            onChange={handleChange}
                         />
                         <label htmlFor="lname">Last Name</label>
                         <input
@@ -27,6 +57,11 @@ function CCVPersonal() {
                             type="text"
                             name="lname"
                             placeholder="Smith"
+                            required
+                            value={personalData.lname}
+                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid name')}
+                            pattern='[A-Za-z]+'
+                            onChange={handleChange}
                         />
                         <label htmlFor="email">Email Address</label>
                         <input
@@ -34,6 +69,11 @@ function CCVPersonal() {
                             type="email"
                             name="email"
                             placeholder="johnsmith@email.com"
+                            required
+                            value={personalData.email}
+                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid email, e.g. email@email.com')}
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}"
+                            onChange={handleChange}
                         />
                         <label htmlFor="phone">Phone Number</label>
                         <input
@@ -41,6 +81,9 @@ function CCVPersonal() {
                             type="tel"
                             name="phone"
                             placeholder="(555) 555-5555"
+                            required
+                            value={personalData.phone}
+                            onChange={handleChange}
                         />
                         <label htmlFor="city">City</label>
                         <input
@@ -48,6 +91,11 @@ function CCVPersonal() {
                             type="text"
                             name="city"
                             placeholder="Cairo"
+                            required
+                            value={personalData.city}
+                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid city name')}
+                            pattern='[A-Za-z]+'
+                            onChange={handleChange}
                         />
                         <label htmlFor="country">Country</label>
                         <input
@@ -55,6 +103,11 @@ function CCVPersonal() {
                             type="text"
                             name="country"
                             placeholder="Egypt"
+                            required
+                            value={personalData.country}
+                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid country name')}
+                            pattern='[A-Za-z]+'
+                            onChange={handleChange}
                         />
                     </fieldset>
                     <legend>
@@ -62,12 +115,16 @@ function CCVPersonal() {
                     </legend>
                     <fieldset>
                         <hr />
-                        <label htmlFor="linkedIn"></label>
+                        <label htmlFor="linkedin"></label>
                         <input
                             type="text"
-                            name="linkedIn"
-                            id="linkedIn"
+                            name="linkedin"
+                            id="linkedin"
                             placeholder="https://www.linkedin.com/in/user-id/"
+                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid url, e.g. https://www.linkedin.com/in/user-id/')}
+                            pattern="https?://(www\.)?linkedin\.com/.*"
+                            onChange={handleChange}
+                            value={personalData.linkedin}
                         />
                         <label htmlFor="website"></label>
                         <input
@@ -75,8 +132,13 @@ function CCVPersonal() {
                             name="website"
                             id="website"
                             placeholder="https://github.com/ahmedmk11"
+                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid url, e.g. https://github.com/username')}
+                            pattern="https?://.+"
+                            onChange={handleChange}
+                            value={personalData.website}
                         />
                     </fieldset>
+                    <Button classN="plus" name='Done' type='submit' />
                 </form>
             </div>
         </>

@@ -1,10 +1,11 @@
 /* eslint-disable indent */
 import React from 'react'
-import { useState , useEffect , useCallback} from 'react'
+import { useState , useEffect , useCallback, useContext} from 'react'
 import Progress from '../components/Progress.jsx'
 import Button from '../components/Button.jsx'
 import { useForm } from 'react-hook-form';
 import Section from './Section.jsx';
+import DataContext from './DataContext.jsx'
 
 function CCVExperience() {
     const { handleSubmit: handleSubmit1, reset: reset1 } = useForm();
@@ -14,9 +15,7 @@ function CCVExperience() {
     const [flagW, setFlagW] = useState(0)
     const [flagS, setFlagS] = useState(0)
     const [flagC, setFlagC] = useState(0)
-    const [jobs, setJobs] = useState([])
-    const [schools, setSchools] = useState([])
-    const [skills, setSkills] = useState([])
+    const { jobs, setJobs, schools, setSchools, skills, setSkills } = useContext(DataContext)
     const [jobData, setJobData] = useState({
         id: '',
         cname: '',
@@ -151,14 +150,17 @@ function CCVExperience() {
         setFlagC(-1)
     }
     function handleChange(event) {
+        event.target.setCustomValidity('')
         const { name, value } = event.target;
         setJobData({ ...jobData, [name]: value });
     }
     function handleSchoolChange(event) {
+        event.target.setCustomValidity('')
         const { name, value } = event.target;
         setSchoolData({ ...schoolData, [name]: value });
     }
     function handleSkillChange(event) {
+        event.target.setCustomValidity('')
         const { name, value } = event.target;
         setSkillsData({ ...skillsData, [name]: value });
     }
@@ -361,7 +363,7 @@ function CCVExperience() {
                             type="text"
                             name='wcity'
                             required
-                            onInvalid="setCustomValidity('Must be a valid city name')"
+                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid city name')}
                             pattern='[A-Za-z]+'
                             placeholder="Cairo"
                             value={jobData.wcity}
@@ -372,7 +374,7 @@ function CCVExperience() {
                             type="text"
                             name='wcountry'
                             required
-                            onInvalid="setCustomValidity('Must be a valid country name')"
+                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid country name')}
                             pattern='[A-Za-z]+'
                             placeholder="Egypt"
                             value={jobData.wcountry}
@@ -406,9 +408,9 @@ function CCVExperience() {
                                     editSection={editSection} 
                                     data={
                                         {
-                                            name: school.cname,
-                                            start: school.startDate,
-                                            end: school.endDate
+                                            name: school.uni,
+                                            start: school.startDateSchool,
+                                            end: school.endDateSchool
                                         }
                                     } />
                             </>
@@ -464,7 +466,7 @@ function CCVExperience() {
                             name='scity'
                             placeholder="Cairo"
                             required
-                            onInvalid="setCustomValidity('Must be a valid city name')"
+                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid city name')}
                             pattern='[A-Za-z]+'
                             value={schoolData.scity}
                             onChange={handleSchoolChange} />
@@ -475,7 +477,7 @@ function CCVExperience() {
                             name='scountry'
                             placeholder="Egypt"
                             required
-                            onInvalid="setCustomValidity('Must be a valid country name')"
+                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid country name')}
                             pattern='[A-Za-z]+'
                             value={schoolData.scountry}
                             onChange={handleSchoolChange} />
