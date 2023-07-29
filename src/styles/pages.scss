@@ -6,30 +6,23 @@
     justify-content: start;
     align-items: center;
     width: 100%;
-    min-height: 800px;
-    #home-body-top {
-        width: 100%;
+    background-image: url('../assets/images/pictures/home.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 0px -100px;
+    min-height: 600px;
+    #home-body {
         display: flex;
         flex-direction: row;
         justify-content: center;
-        align-items: center;
-        img {
-            height: 75%;
-            width: 80%;
-            border-radius: 20px;
-            -webkit-border-radius: 20px;
-            -moz-border-radius: 20px;
-            -ms-border-radius: 20px;
-            -o-border-radius: 20px;
-        }
-    }
-    #home-body-bottom {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
+        align-items: flex-end;
         width: 100%;
-        #home-body-bottom-left {
+        #home-body-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            height: 400px;
             width: fit-content;
             min-width: fit-content;
             margin-right: 2rem;
@@ -40,9 +33,9 @@
                 font-size: 1.4rem;
             }
         }
-        #home-body-bottom-right {
+        #home-body-right {
+            height: 400px;
             width: 400px;
-            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;

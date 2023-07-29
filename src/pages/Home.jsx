@@ -1,7 +1,6 @@
 import Header from '../components/Header.jsx'
 import Footer from '../components/Footer.jsx'
 import Button from '../components/Button.jsx'
-import HomePic from '../assets/images/home.png'
 import { Link } from 'react-router-dom'
 
 function Home() {
@@ -29,11 +28,8 @@ function Home() {
                 }}
             />
             <div id="home-body">
-                <div id="home-body-top">
-                    <img src={HomePic} alt="Resume on a desk" />
-                </div>
-                <div id="home-body-bottom">
-                    <div id="home-body-bottom-left">
+                <div id="home-body">
+                    <div id="home-body-left">
                         <h3>In three simple steps</h3>
                         <ol>
                             <li>
@@ -48,7 +44,7 @@ function Home() {
                             </li>
                         </ol>
                     </div>
-                    <div id="home-body-bottom-right">
+                    <div id="home-body-right">
                         <Button
                             name={'Start Creating Now!'}
                             classN={'default-button'}
