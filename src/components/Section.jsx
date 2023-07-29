@@ -5,7 +5,7 @@ import editIcn from '../assets/images/icons/edit.svg'
 import deleteIcn from '../assets/images/icons/delete.svg'
 
 function Section(props) {
-    const { type , data } = props
+    const { type , data, deleteSection, editSection, id, key } = props
 
     const dateConverter = (rawDate) => {
         let dateParts = rawDate.split("-")
@@ -23,16 +23,16 @@ function Section(props) {
         case 'work': {
             let name = data.name
             let start = dateConverter(data.start)
-            let end = dateConverter(data.end)
+            let end = (data.end === '') ? 'undefined' : dateConverter(data.end)
             content = (
-                <div className='section'>
+                <div className='section' id={id} key={key}>
                     <div className="section-top">
                         <p><strong>{name}</strong></p>
-                        <p>{end === '' ? start : `${start} - ${end}`}</p>
+                        <p>{end == 'undefined' ? start : `${start} - ${end}`}</p>
                     </div>
                     <div className='section-icons'>
-                        <img src={editIcn} alt="edit icon" />
-                        <img src={deleteIcn} alt="delete icon" />
+                        <img src={editIcn} alt="edit icon" onClick={editSection} />
+                        <img src={deleteIcn} alt="delete icon" onClick={deleteSection} />
                     </div>
                 </div>
             )
@@ -41,16 +41,16 @@ function Section(props) {
         case 'education': {
             let name = data.name
             let start = dateConverter(data.start)
-            let end = dateConverter(data.end)
+            let end = (data.end === '') ? 'undefined' : dateConverter(data.end)
             content = (
-                <div className='section'>
+                <div className='section' id={id} key={key}>
                     <div className="section-top">
                         <p><strong>{name}</strong></p>
-                        <p>{end === '' ? start : `${start} - ${end}`}</p>
+                        <p>{end === 'undefined' ? start : `${start} - ${end}`}</p>
                     </div>
                     <div className='section-icons'>
-                        <img src={editIcn} alt="edit icon" />
-                        <img src={deleteIcn} alt="delete icon" />
+                        <img src={editIcn} alt="edit icon" onClick={editSection} />
+                        <img src={deleteIcn} alt="delete icon" onClick={deleteSection} />
                     </div>
                 </div>
             )
@@ -64,7 +64,7 @@ function Section(props) {
             let references = data.references
             let languages = data.languages
             content = (
-                <div className='section'>
+                <div className='section' id={id} key={key}>
                     <div className="section-top">
                         {certificates.length > 0 && <p><strong>Certificates:</strong> {certificates.join(', ')}</p>}
                         {skills.length > 0 && <p><strong>Skills:</strong> {skills.join(', ')}</p>}
@@ -74,8 +74,8 @@ function Section(props) {
                         {references.length > 0 && <p><strong>References:</strong> {references.join(', ')}</p>}
                     </div>
                     <div className='section-icons'>
-                        <img src={editIcn} alt="edit icon" />
-                        <img src={deleteIcn} alt="delete icon" />
+                        <img src={editIcn} alt="edit icon" onClick={editSection}/>
+                        <img src={deleteIcn} alt="delete icon" onClick={deleteSection} />
                     </div>
                 </div>
             )
@@ -92,7 +92,11 @@ function Section(props) {
 
 Section.propTypes = {
     type: PropTypes.string,
-    data: PropTypes.object
+    data: PropTypes.object,
+    deleteSection: PropTypes.func.isRequired,
+    editSection: PropTypes.func.isRequired,
+    id: PropTypes.string.isRequired,
+    key: PropTypes.string.isRequired
 }
 
 Section.defaultProps = {

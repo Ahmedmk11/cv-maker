@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React from 'react'
 import { useState , useEffect , useCallback} from 'react'
 import Progress from '../components/Progress.jsx'
@@ -6,9 +7,10 @@ import { useForm } from 'react-hook-form';
 import Section from './Section.jsx';
 
 function CCVExperience() {
-    const { register: register1, handleSubmit: handleSubmit1, reset: reset1, formState: { errors: errors1 } } = useForm();
-    const { register: register2, handleSubmit: handleSubmit2, reset: reset2, formState: { errors: errors2 } } = useForm();
-    const { register: register3, handleSubmit: handleSubmit3, reset: reset3, formState: { errors: errors3 } } = useForm();
+    const { handleSubmit: handleSubmit1, reset: reset1 } = useForm();
+    const { handleSubmit: handleSubmit2, reset: reset2 } = useForm();
+    const { handleSubmit: handleSubmit3 } = useForm();
+    const [isEdit, setIsEdit] = useState(false)
     const [flagW, setFlagW] = useState(0)
     const [flagS, setFlagS] = useState(0)
     const [flagC, setFlagC] = useState(0)
@@ -16,6 +18,7 @@ function CCVExperience() {
     const [schools, setSchools] = useState([])
     const [skills, setSkills] = useState([])
     const [jobData, setJobData] = useState({
+        id: '',
         cname: '',
         jtitle: '',
         startDate: '',
@@ -25,6 +28,7 @@ function CCVExperience() {
         desc: '',
     })
     const [schoolData, setSchoolData] = useState({
+        id: '',
         uni: '',
         degree: '',
         major: '',
@@ -35,6 +39,7 @@ function CCVExperience() {
         descSchool: '',
     })
     const [skillsData, setSkillsData] = useState({
+        id: '',
         certificates: '',
         skills: '',
         courses: '',
@@ -43,46 +48,57 @@ function CCVExperience() {
         languages: '',
     })
     const saveWork = () => {
-        setJobs([...jobs, jobData])
-        setJobData({
-            cname: '',
-            jtitle: '',
-            startDate: '',
-            endDate: '',
-            wcity: '',
-            wcountry: '',
-            desc: '',
-        })
-        reset1()
-        setFlagW(0)
+        if (!isEdit) {
+            const newJobData = {
+                ...jobData,
+                id: jobs.length
+            }
+            setJobs([...jobs, newJobData]);
+            setJobData({
+                id: '',
+                cname: '',
+                jtitle: '',
+                startDate: '',
+                endDate: '',
+                wcity: '',
+                wcountry: '',
+                desc: '',
+            });
+            reset1();
+        } else {
+            setJobs(jobs.map(job => job.id === jobData.id ? jobData : job));
+        }
+        setIsEdit(false)
+        setFlagW(0);
     }
     const saveSchool = () => {
-        setSchools([...schools, schoolData])
-        setSchoolData({
-            uni: '',
-            degree: '',
-            major: '',
-            startDateSchool: '',
-            endDateSchool: '',
-            scity: '',
-            scountry: '',
-            descSchool: '',
-        })
-        reset2()
+        if (!isEdit) {
+            const newSchoolData = {
+                ...schoolData,
+                id: schools.length
+            }
+            setSchools([...schools, newSchoolData])
+            setSchoolData({
+                id: '',
+                uni: '',
+                degree: '',
+                major: '',
+                startDateSchool: '',
+                endDateSchool: '',
+                scity: '',
+                scountry: '',
+                descSchool: '',
+            })
+            reset2()
+        } else {
+            setSchools(schools.map(school => school.id === schoolData.id ? schoolData : school));
+        }
+        setIsEdit(false)
         setFlagS(0)
     }
     const saveSkills = () => {
         setSkills([skillsData])
-        setSkillsData({
-            certificates: '',
-            skills: '',
-            courses: '',
-            interests: '',
-            references: '',
-            languages: '',
-        })
-        reset3()
-        setFlagC(0)
+        setFlagC(-1)
     }
     const addWork = useCallback((event) => {
         event.preventDefault()
@@ -100,16 +116,39 @@ function CCVExperience() {
         setButton3(<Button id="done-button-3" classN="plus" name='Done' type='submit' />)
     }, [])
     const cancelJob = (event) => {
+        setJobData({
+            id: '',
+            cname: '',
+            jtitle: '',
+            startDate: '',
+            endDate: '',
+            wcity: '',
+            wcountry: '',
+            desc: '',
+        });
+        reset1();
         event.preventDefault()
         setFlagW(0)
     }
     const cancelSchool = (event) => {
+        setSchoolData({
+            id: '',
+            uni: '',
+            degree: '',
+            major: '',
+            startDateSchool: '',
+            endDateSchool: '',
+            scity: '',
+            scountry: '',
+            descSchool: '',
+        });
+        reset2();
         event.preventDefault()
         setFlagS(0)
     }
     const cancelSkills = (event) => {
         event.preventDefault()
-        setFlagC(0)
+        setFlagC(-1)
     }
     function handleChange(event) {
         const { name, value } = event.target;
@@ -152,8 +191,106 @@ function CCVExperience() {
         } else if (flagC === 0) {
             document.getElementById('skillsField').hidden = true
             setButton3(<Button classN="plus" name='Add Skills and Certifications' click={addSkill} />)
+        } else if (flagC === -1) {
+            document.getElementById('skillsField').hidden = true
+            setButton3(<Button classN="plus" name='Edit Skills and Certifications' click={addSkill} />)
         }
     }, [flagC, addSkill])
+    
+    useEffect(() => {
+        console.log(jobData)
+        console.log(schools)
+        console.log(skills)
+    }, [jobData, schools, skills])
+
+    function handleInputChange(event) {
+        var input = event.target;
+        var inputValue = input.value;
+        var modifiedValue = inputValue.replace(/(\s+|,+)/g, ',').trim();
+        input.value = modifiedValue;
+    }  
+
+    function deleteSection(event) {
+        event.preventDefault()
+        const id = event.target.parentElement.parentElement.id
+        const type = id.split('-')[0]
+        const index = id.split('-')[1]
+        switch (type) {
+            case 'job': {
+                const newJobs = jobs.filter((job, i) => i !== parseInt(index))
+                setJobs(newJobs)
+                break
+            }
+            case 'school': {
+                const newSchools = schools.filter((school, i) => i !== parseInt(index))
+                setSchools(newSchools)
+                break
+            }
+            case 'skill': {
+                const newSkills = skills.filter((skill, i) => i !== parseInt(index))
+                setSkills(newSkills)
+                break
+            }
+        }
+    }
+
+    const editSection = (event) => {
+        event.preventDefault()
+        setIsEdit(true)
+        const id = event.target.parentElement.parentElement.id
+        const type = id.split('-')[0]
+        const index = id.split('-')[1]
+        switch (type) {
+            case 'job': {
+                const job = jobs[index]
+                setJobData({
+                    id: job.id,
+                    cname: job.cname,
+                    jtitle: job.jtitle,
+                    startDate: job.startDate,
+                    endDate: job.endDate,
+                    wcity: job.wcity,
+                    wcountry: job.wcountry,
+                    desc: job.desc,
+                })
+                setFlagW(1)
+                setButton1(<Button classN="plus" name='Done' isSubmit={true} />)
+                break
+            }
+            case 'school': {
+                const school = schools[index]
+                setSchoolData({
+                    id: school.id,
+                    uni: school.uni,
+                    degree: school.degree,
+                    major: school.major,
+                    startDateSchool: school.startDate,
+                    endDateSchool: school.endDate,
+                    scity: school.scity,
+                    scountry: school.scountry,
+                    descSchool: school.descSchool,
+                })
+                setFlagS(1)
+                setButton1(<Button classN="plus" name='Done' isSubmit={true} />)
+                break
+            }
+            case 'skill': {
+                const skill = skills[index]
+                setSkillsData({
+                    id: skill.id,
+                    certificates: skill.certificates.join(', '),
+                    skills: skill.skills.join(', '),
+                    courses: skill.courses.join(', '),
+                    interests: skill.interests.join(', '),
+                    references: skill.references.join(', '),
+                    languages: skill.languages.join(', '),
+                })
+                setFlagC(1)
+                setButton1(<Button classN="plus" name='Done' isSubmit={true} />)
+                break
+            }
+        }
+    }
 
     return (
         <>
@@ -168,13 +305,19 @@ function CCVExperience() {
                     <div className='sections'>
                         {jobs.map((job, index) => (
                             <>
-                                <Section key={`job-${index}`} type='work' data={
-                                    {
-                                        name: job.cname,
-                                        start: job.startDate,
-                                        end: job.endDate
-                                    }
-                                } />
+                                <Section 
+                                    key={`job-${index}`} 
+                                    type='work' 
+                                    id={`job-${index}`} 
+                                    deleteSection={deleteSection}
+                                    editSection={editSection} 
+                                    data={
+                                        {
+                                            name: job.cname,
+                                            start: job.startDate,
+                                            end: job.endDate
+                                        }
+                                    } />
                             </>
                         ))}
                     </div>
@@ -184,33 +327,27 @@ function CCVExperience() {
                             id="companyName"
                             type="text"
                             name='cname'
-                            {...register1('cname', { required: true })}
-                            style={{ marginBottom: errors1.cname ? '0' : '28px' }}
+                            required
                             placeholder="Company"
                             value={jobData.cname}
                             onChange={handleChange} />
-                        {errors1 && errors1.cname && <p className="error-message">Company name is required</p>}
                         <label htmlFor="jobTitle">Job Title</label>
                         <input
                             id="jobTitle"
                             type="text"
                             name='jtitle'
-                            {...register1('jtitle', { required: true })}
-                            style={{ marginBottom: errors1.jtitle ? '0' : '28px' }}
+                            required
                             placeholder="Software Engineer"
                             value={jobData.jtitle}
                             onChange={handleChange} />
-                        {errors1 && errors1.jtitle && <p className="error-message">Job title is required</p>}
                         <label htmlFor="sDate">Start Date</label>
                         <input
                             id="sDate"
                             type="date"
                             name='startDate'
-                            {...register1('startDate', { required: true })}
-                            style={{ marginBottom: errors1.startDate ? '0' : '28px' }}
+                            required
                             value={jobData.startDate}
                             onChange={handleChange} />
-                        {errors1 && errors1.startDate && <p className="error-message">Start date is required</p>}
                         <label htmlFor="eDate">End Date</label>
                         <input
                             id="eDate"
@@ -223,23 +360,23 @@ function CCVExperience() {
                             id="wcity"
                             type="text"
                             name='wcity'
-                            {...register1('wcity', { required: true })}
-                            style={{ marginBottom: errors1.wcity ? '0' : '28px' }}
+                            required
+                            onInvalid="setCustomValidity('Must be a valid city name')"
+                            pattern='[A-Za-z]+'
                             placeholder="Cairo"
                             value={jobData.wcity}
                             onChange={handleChange} />
-                        {errors1 && errors1.wcity && <p className="error-message">City is required</p>}
                         <label htmlFor="wcountry">Country</label>
                         <input
                             id="wcountry"
                             type="text"
                             name='wcountry'
-                            {...register1('wcountry', { required: true })}
-                            style={{ marginBottom: errors1.wcountry ? '0' : '28px' }}
+                            required
+                            onInvalid="setCustomValidity('Must be a valid country name')"
+                            pattern='[A-Za-z]+'
                             placeholder="Egypt"
                             value={jobData.wcountry}
                             onChange={handleChange} />
-                        {errors1 && errors1.wcountry && <p className="error-message">Country is required</p>}
                         <label htmlFor="role">Description</label>
                         <textarea
                             id="role"
@@ -261,13 +398,19 @@ function CCVExperience() {
                     <div className='sections'>
                         {schools.map((school, index) => (
                             <>
-                                <Section key={`school-${index}`} type='education' data={
-                                    {
-                                        name: school.cname,
-                                        start: school.startDate,
-                                        end: school.endDate
-                                    }
-                                } />
+                                <Section 
+                                    key={`school-${index}`}  
+                                    type='education' 
+                                    id={`school-${index}`} 
+                                    deleteSection={deleteSection}
+                                    editSection={editSection} 
+                                    data={
+                                        {
+                                            name: school.cname,
+                                            start: school.startDate,
+                                            end: school.endDate
+                                        }
+                                    } />
                             </>
                         ))}
                     </div>
@@ -277,44 +420,36 @@ function CCVExperience() {
                             id="uni"
                             type="text"
                             name='uni'
-                            {...register2('uni', { required: true })}
-                            style={{ marginBottom: errors2.uni ? '0' : '28px' }}
+                            required
                             placeholder="German University in Cairo"
                             value={schoolData.uni}
                             onChange={handleSchoolChange} />
-                        {errors2 && errors2.uni && <p className="error-message">School name is required</p>}
                         <label htmlFor="degree">Degree</label>
                         <input
                             id="degree"
                             type="text"
                             name='degree'
-                            {...register2('degree', { required: true })}
-                            style={{ marginBottom: errors2.degree ? '0' : '28px' }}
+                            required
                             placeholder="Bachelor of Science"
                             value={schoolData.degree}
                             onChange={handleSchoolChange} />
-                        {errors2 && errors2.degree && <p className="error-message">Degree is required</p>}
                         <label htmlFor="major">Major</label>
                         <input
                             id="major"
                             type="text"
                             name='major'
-                            {...register2('major', { required: true })}
-                            style={{ marginBottom: errors2.major ? '0' : '28px' }}
+                            required
                             placeholder='Computer Science'
                             value={schoolData.major}
                             onChange={handleSchoolChange} />
-                        {errors2 && errors2.major && <p className="error-message">Major is required</p>}
                         <label htmlFor="sDateSchool">Start Date</label>
                         <input
                             id="sDateSchool"
                             type="date"
                             name='startDateSchool'
-                            {...register2('startDateSchool', { required: true })}
-                            style={{ marginBottom: errors2.startDateSchool ? '0' : '28px' }}
+                            required
                             value={schoolData.startDate}
                             onChange={handleSchoolChange} />
-                        {errors2 && errors2.startDateSchool && <p className="error-message">Start date is required</p>}
                         <label htmlFor="eDateSchool">End Date</label>
                         <input
                             id="eDateSchool"
@@ -327,23 +462,23 @@ function CCVExperience() {
                             id="scity"
                             type="text"
                             name='scity'
-                            {...register2('scity', { required: true })}
-                            style={{ marginBottom: errors2.scity ? '0' : '28px' }}
                             placeholder="Cairo"
+                            required
+                            onInvalid="setCustomValidity('Must be a valid city name')"
+                            pattern='[A-Za-z]+'
                             value={schoolData.scity}
                             onChange={handleSchoolChange} />
-                        {errors2 && errors2.scity && <p className="error-message">City is required</p>}
                         <label htmlFor="scountry">Country</label>
                         <input
                             id="scountry"
                             type="text"
                             name='scountry'
-                            {...register2('scountry', { required: true })}
-                            style={{ marginBottom: errors2.scountry ? '0' : '28px' }}
                             placeholder="Egypt"
+                            required
+                            onInvalid="setCustomValidity('Must be a valid country name')"
+                            pattern='[A-Za-z]+'
                             value={schoolData.scountry}
                             onChange={handleSchoolChange} />
-                        {errors2 && errors2.scountry && <p className="error-message">Country is required</p>}
                         <label htmlFor="roleSchool">Description</label>
                         <textarea
                             id="roleSchool"
@@ -365,110 +500,80 @@ function CCVExperience() {
                     <div className='sections'>
                         {skills.map((skill, index) => (
                             <>
-                                <Section key={`skill-${index}`} type='skills' data={
-                                    {
-                                        certificates: skill.certificates.split(',').map(item => item.trim()),
-                                        skills: skill.skills.split(',').map(item => item.trim()),
-                                        courses: skill.courses.split(',').map(item => item.trim()),
-                                        interests: skill.interests.split(',').map(item => item.trim()),
-                                        references: skill.references.split(',').map(item => item.trim()),
-                                        languages: skill.languages.split(',').map(item => item.trim()),
-                                    }
-                                } />
+                                <Section 
+                                    key={`skill-${index}`} 
+                                    type='skills' 
+                                    id={`skill-${index}`} 
+                                    deleteSection={deleteSection}
+                                    editSection={editSection} 
+                                    data={
+                                        {
+                                            certificates: skill.certificates.split(',').map(item => item.trim()),
+                                            skills: skill.skills.split(',').map(item => item.trim()),
+                                            courses: skill.courses.split(',').map(item => item.trim()),
+                                            interests: skill.interests.split(',').map(item => item.trim()),
+                                            references: skill.references.split(',').map(item => item.trim()),
+                                            languages: skill.languages.split(',').map(item => item.trim()),
+                                        }
+                                    } />
                             </>
                         ))}
                     </div>
                     <fieldset id='skillsField' className="field" hidden>
                         <label htmlFor="certificates">Certifications</label>
                         <textarea
+                            onInput={handleInputChange}
                             id="certificates"
                             name='certificates'
-                            {...register3('certificates', {
-                                pattern: {
-                                    value: /^(\s*\w+\s*,)*\s*\w+\s*$/,
-                                }
-                            })}
                             placeholder="Any certifications?"
-                            style={{ marginBottom: errors3.certificates ? '0' : '28px' }}
                             value={skillsData.certificates}
                             onChange={handleSkillChange}>
                         </textarea>
-                        {errors3 && errors3.certificates && <p className="error-message">Separate values by a comma〝,〞</p>}
                         <label htmlFor="skills">Skills</label>
                         <textarea
+                            onInput={handleInputChange}
                             id="skills"
                             name='skills'
-                            {...register3('skills', {
-                                pattern: {
-                                    value: /^(\s*\w+\s*,)*\s*\w+\s*$/,
-                                }
-                            })}
                             placeholder="Any skills?"
-                            style={{ marginBottom: errors3.skills ? '0' : '28px' }}
                             value={skillsData.skills}
                             onChange={handleSkillChange}>
                         </textarea>
-                        {errors3 && errors3.skills && <p className="error-message">Separate values by a comma〝,〞</p>}
                         <label htmlFor="courses">Courses</label>
                         <textarea
+                            onInput={handleInputChange}
                             id="courses"
                             name='courses'
-                            {...register3('courses', {
-                                pattern: {
-                                    value: /^(\s*\w+\s*,)*\s*\w+\s*$/,
-                                }
-                            })}
                             placeholder="Any courses?"
-                            style={{ marginBottom: errors3.courses ? '0' : '28px' }}
                             value={skillsData.courses}
                             onChange={handleSkillChange}>
                         </textarea>
-                        {errors3 && errors3.courses && <p className="error-message">Separate values by a comma〝,〞</p>}
                         <label htmlFor="interests">Interests</label>
                         <textarea
+                            onInput={handleInputChange}
                             id="interests"
                             name='interests'
-                            {...register3('interests', {
-                                pattern: {
-                                    value: /^(\s*\w+\s*,)*\s*\w+\s*$/,
-                                }
-                            })}
                             placeholder="Any interests?"
-                            style={{ marginBottom: errors3.interests ? '0' : '28px' }}
                             value={skillsData.interests}
                             onChange={handleSkillChange}>
                         </textarea>
-                        {errors3 && errors3.interests && <p className="error-message">Separate values by a comma〝,〞</p>}
                         <label htmlFor="languages">Languages</label>
                         <textarea
+                            onInput={handleInputChange}
                             id="languages"
                             name='languages'
-                            {...register3('languages', {
-                                pattern: {
-                                    value: /^(\s*\w+\s*,)*\s*\w+\s*$/,
-                                }
-                            })}
                             placeholder="Any languages?"
-                            style={{ marginBottom: errors3.languages ? '0' : '28px' }}
                             value={skillsData.languages}
                             onChange={handleSkillChange}>
                         </textarea>
-                        {errors3 && errors3.languages && <p className="error-message">Separate values by a comma〝,〞</p>}
                         <label htmlFor="references">References</label>
                         <textarea
+                            onInput={handleInputChange}
                             id="references"
                             name='references'
-                            {...register3('references', {
-                                pattern: {
-                                    value: /^(\s*\w+\s*,)*\s*\w+\s*$/,
-                                }
-                            })}
                             placeholder="Any references?"
-                            style={{ marginBottom: errors3.references ? '0' : '28px' }}
                             value={skillsData.references}
                             onChange={handleSkillChange}>
                         </textarea>
-                        {errors3 && errors3.references && <p className="error-message">Separate values by a comma〝,〞</p>}
                     </fieldset>
                     {button3}
                     {(button3.props.name === 'Done') && <Button classN="plus" name='Cancel' click={cancelSkills} />}
