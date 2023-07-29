@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import plusIcn from '../assets/images/icons/plus.svg'
+import tickIcn from '../assets/images/icons/tick.svg'
 
 function Button(props) {
     const { name, classN, click, isSubmit } = props
@@ -8,6 +9,8 @@ function Button(props) {
         <button className={classN} onClick={click} type={isSubmit ? 'submit' : undefined}>
             {classN === 'plus' ? (
                 <img id="plus-icn" src={plusIcn} alt="plus icon"></img>
+            ) : classN === 'tick' ? (
+                <img id="plus-icn" src={tickIcn} alt="tick icon"></img>
             ) : null}
             {name}
         </button>

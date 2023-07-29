@@ -21,6 +21,7 @@ function CreateCV(props) {
     const [jobs, setJobs] = useState([])
     const [schools, setSchools] = useState([])
     const [skills, setSkills] = useState([])
+    const [template, setTemplate] = useState('')
     const { stage } = props
     const navigate = useNavigate()
 
@@ -65,6 +66,7 @@ function CreateCV(props) {
                 skills: skills
             })
         }
+
         if (count <= 2) {
             setCount(count + 1)
         }
@@ -79,10 +81,11 @@ function CreateCV(props) {
     useEffect(() => {
         console.log(personalInfo)
         console.log(ExperienceInfo)
-    }, [personalInfo, ExperienceInfo])
+        console.log(template)
+    }, [personalInfo, ExperienceInfo, template])
 
     return (
-        <DataContext.Provider value={{ jobs, setJobs, schools, setSchools, skills, setSkills }}>
+        <DataContext.Provider value={{ jobs, setJobs, schools, setSchools, skills, setSkills, template, setTemplate }}>
             <Header
                 isSelected={{
                     isSelected1: false,
