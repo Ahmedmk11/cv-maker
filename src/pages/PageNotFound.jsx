@@ -1,9 +1,10 @@
-import Header from '../components/Header.jsx'
-import Footer from '../components/Footer.jsx'
+import React from 'react';
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
 
 function PageNotFound() {
-    document.body.scrollTop = 0
-    document.documentElement.scrollTop = 0
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
     return (
         <>
             <Header
@@ -13,10 +14,13 @@ function PageNotFound() {
                     isSelected3: false,
                 }}
             />
-            <div id="home-body">NotFound</div>
+            <div id="notfound-body">
+                <h1>404 Page Not Found</h1>
+                <p>Sorry, the page you are looking for could not be found.</p>
+            </div>
             <Footer />
         </>
-    )
+    );
 }
 
-export default PageNotFound
+export default PageNotFound;

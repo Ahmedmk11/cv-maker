@@ -1,5 +1,5 @@
 import React from 'react'
-import UlLink from './Link.jsx'
+import UlLink from './UlLink.jsx'
 import { Link } from 'react-router-dom'
 
 function Footer() {

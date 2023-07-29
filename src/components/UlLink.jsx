@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 function UlLink(props) {
     const { page, isSelected } = props
     const classN = isSelected ? 'selected' : 'default-link'
-    let dest = page
+    let dest = page.toLowerCase()
     if (page === 'Create CV') {
         dest = 'create/personal-details'
     }
