@@ -1,10 +1,10 @@
-import React from 'react';
-import Header from '../components/Header.jsx';
-import Footer from '../components/Footer.jsx';
+import React from 'react'
+import Header from '../components/Header.jsx'
+import Footer from '../components/Footer.jsx'
 
 function PageNotFound() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0
+    document.documentElement.scrollTop = 0
     return (
         <>
             <Header
@@ -20,7 +20,7 @@ function PageNotFound() {
             </div>
             <Footer />
         </>
-    );
+    )
 }
 
-export default PageNotFound;
+export default PageNotFound

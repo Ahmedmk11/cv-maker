@@ -6,7 +6,11 @@ import tickIcn from '../assets/images/icons/tick.svg'
 function Button(props) {
     const { name, classN, click, isSubmit } = props
     return (
-        <button className={classN} onClick={click} type={isSubmit ? 'submit' : undefined}>
+        <button
+            className={classN}
+            onClick={click}
+            type={isSubmit ? 'submit' : undefined}
+        >
             {classN === 'plus' ? (
                 <img id="plus-icn" src={plusIcn} alt="plus icon"></img>
             ) : classN === 'tick' ? (

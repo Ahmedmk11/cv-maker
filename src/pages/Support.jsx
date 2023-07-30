@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import BounceLoader from 'react-spinners/BounceLoader';
+import BounceLoader from 'react-spinners/BounceLoader'
 
-import Header from '../components/Header.jsx';
-import Footer from '../components/Footer.jsx';
-import Button from '../components/Button.jsx';
+import Header from '../components/Header.jsx'
+import Footer from '../components/Footer.jsx'
+import Button from '../components/Button.jsx'
 
 function Support() {
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
+    const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
+    document.body.scrollTop = 0
+    document.documentElement.scrollTop = 0
 
     const sendMail = async (t, e, m) => {
         let msg = {
@@ -19,24 +19,33 @@ function Support() {
             message: m,
         }
         let msgStr = await JSON.stringify(msg)
-        let response = await fetch('https://resumio-rho.vercel.app/support', {
-            method: `POST`,
-            headers: { 'Content-Type': 'application/json' },
-            body: msgStr,
-        })
+        let response = await fetch(
+            'https://resumio-server.onrender.com/support',
+            {
+                method: `POST`,
+                headers: { 'Content-Type': 'application/json' },
+                body: msgStr,
+            }
+        )
         return response.body
     }
 
     const submitSupport = (event) => {
-        event.preventDefault();
-        const topic = document.getElementById('support-topic');
-        const email = document.getElementById('support-email');
-        const message = document.getElementById('support-message');
-        if (topic.reportValidity() && email.reportValidity() && message.reportValidity()) {
+        event.preventDefault()
+        const topic = document.getElementById('support-topic')
+        const email = document.getElementById('support-email')
+        const message = document.getElementById('support-message')
+        if (
+            topic.reportValidity() &&
+            email.reportValidity() &&
+            message.reportValidity()
+        ) {
             setLoading(true)
-            sendMail(topic.value, email.value, message.value)
+            Promise.all([
+                sendMail(topic.value, email.value, message.value),
+                new Promise((resolve) => setTimeout(resolve, 2000)),
+            ])
                 .then(function () {
-                    console.log('Mail sent successfully')
                     setLoading(false)
                     navigate('/')
                 })
@@ -59,7 +68,9 @@ function Support() {
                 {loading ? (
                     <div className="loader-container">
                         <div className="spinner">
-                            <h1 className='grat'>Thank you for your message!</h1>
+                            <h1 className="grat">
+                                Thank you for your message!
+                            </h1>
                             <BounceLoader color={'#F4F7F8'} size={100} />
                         </div>
                     </div>
@@ -67,13 +78,22 @@ function Support() {
                     <>
                         <div id="support-item">
                             <h1>Support</h1>
-                            <p>Welcome to our support page. How can we help you?</p>
-                            <form className='form'>
+                            <p>
+                                Welcome to our support page. How can we help
+                                you?
+                            </p>
+                            <form className="form">
                                 <label htmlFor="support-topic">Topic</label>
                                 <select id="support-topic" required>
-                                    <option value="" disabled selected>--Please choose an option--</option>
-                                    <option value="Suggestion">Suggestion</option>
-                                    <option value="Technical">Technical Problem</option>
+                                    <option value="" disabled selected>
+                                        --Please choose an option--
+                                    </option>
+                                    <option value="Suggestion">
+                                        Suggestion
+                                    </option>
+                                    <option value="Technical">
+                                        Technical Problem
+                                    </option>
                                     <option value="General">General</option>
                                 </select>
                                 <br />
@@ -87,17 +107,25 @@ function Support() {
                                 />
                                 <br />
                                 <label htmlFor="support-message">Message</label>
-                                <textarea id="support-message" placeholder='Your message here..' required></textarea>
+                                <textarea
+                                    id="support-message"
+                                    placeholder="Your message here.."
+                                    required
+                                ></textarea>
                                 <br />
                             </form>
                         </div>
-                        <Button name="Send" isSubmit={false} click={submitSupport} />
+                        <Button
+                            name="Send"
+                            isSubmit={false}
+                            click={submitSupport}
+                        />
                     </>
                 )}
             </div>
             <Footer />
         </>
-    );
+    )
 }
 
-export default Support;
+export default Support

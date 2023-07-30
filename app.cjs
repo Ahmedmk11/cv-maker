@@ -22,7 +22,7 @@ app.post('/support', (req, res) => {
         service: 'gmail',
         auth: {
             user: 'resumiomail@gmail.com',
-            pass: process.env.pass
+            pass: process.env.pass,
         },
     })
 
@@ -55,13 +55,13 @@ app.post('/support', (req, res) => {
 
     transporter.sendMail(mailOptions, function (error) {
         if (error) {
-            console.log(error);
-            res.status(500).send('An error occurred while sending the email');
+            console.log(error)
+            res.status(500).send('An error occurred while sending the email')
         } else {
-            console.log('Email sent <3');
-            res.send('Email sent successfully');
+            console.log('Email sent <3')
+            res.send('Email sent successfully')
         }
-    });    
+    })
 })
 
 app.listen(port, (err) => {

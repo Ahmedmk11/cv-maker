@@ -1,20 +1,28 @@
 /* eslint-disable indent */
 import React from 'react'
-import { useState , useEffect , useCallback, useContext, useLayoutEffect, useRef } from 'react'
+import {
+    useState,
+    useEffect,
+    useCallback,
+    useContext,
+    useLayoutEffect,
+    useRef,
+} from 'react'
 import Button from '../components/Button.jsx'
-import { useForm } from 'react-hook-form';
-import Section from './Section.jsx';
+import { useForm } from 'react-hook-form'
+import Section from './Section.jsx'
 import DataContext from './DataContext.jsx'
 
 function CCVExperience() {
-    const { handleSubmit: handleSubmit1, reset: reset1 } = useForm();
-    const { handleSubmit: handleSubmit2, reset: reset2 } = useForm();
-    const { handleSubmit: handleSubmit3 } = useForm();
+    const { handleSubmit: handleSubmit1, reset: reset1 } = useForm()
+    const { handleSubmit: handleSubmit2, reset: reset2 } = useForm()
+    const { handleSubmit: handleSubmit3 } = useForm()
     const [isEdit, setIsEdit] = useState(false)
     const [flagW, setFlagW] = useState(0)
     const [flagS, setFlagS] = useState(0)
     const [flagC, setFlagC] = useState(0)
-    const { jobs, setJobs, schools, setSchools, skills, setSkills } = useContext(DataContext)
+    const { jobs, setJobs, schools, setSchools, skills, setSkills } =
+        useContext(DataContext)
     const [jobData, setJobData] = useState({
         id: '',
         cname: '',
@@ -49,9 +57,9 @@ function CCVExperience() {
         if (!isEdit) {
             const newJobData = {
                 ...jobData,
-                id: jobs.length
+                id: jobs.length,
             }
-            setJobs([...jobs, newJobData]);
+            setJobs([...jobs, newJobData])
             setJobData({
                 id: '',
                 cname: '',
@@ -61,19 +69,19 @@ function CCVExperience() {
                 wcity: '',
                 wcountry: '',
                 desc: '',
-            });
-            reset1();
+            })
+            reset1()
         } else {
-            setJobs(jobs.map(job => job.id === jobData.id ? jobData : job));
+            setJobs(jobs.map((job) => (job.id === jobData.id ? jobData : job)))
         }
         setIsEdit(false)
-        setFlagW(0);
+        setFlagW(0)
     }
     const saveSchool = () => {
         if (!isEdit) {
             const newSchoolData = {
                 ...schoolData,
-                id: schools.length
+                id: schools.length,
             }
             setSchools([...schools, newSchoolData])
             setSchoolData({
@@ -89,7 +97,11 @@ function CCVExperience() {
             })
             reset2()
         } else {
-            setSchools(schools.map(school => school.id === schoolData.id ? schoolData : school));
+            setSchools(
+                schools.map((school) =>
+                    school.id === schoolData.id ? schoolData : school
+                )
+            )
         }
         setIsEdit(false)
         setFlagS(0)
@@ -101,17 +113,38 @@ function CCVExperience() {
     const addWork = useCallback((event) => {
         event.preventDefault()
         setFlagW(1)
-        setButton1(<Button id="done-button-1" classN="plus" name='Done' type='submit' />)
+        setButton1(
+            <Button
+                id="done-button-1"
+                classN="plus"
+                name="Done"
+                type="submit"
+            />
+        )
     }, [])
     const addSchool = useCallback((event) => {
         event.preventDefault()
         setFlagS(1)
-        setButton2(<Button id="done-button-2" classN="plus" name='Done' type='submit' />)
+        setButton2(
+            <Button
+                id="done-button-2"
+                classN="plus"
+                name="Done"
+                type="submit"
+            />
+        )
     }, [])
     const addSkill = useCallback((event) => {
         event.preventDefault()
         setFlagC(1)
-        setButton3(<Button id="done-button-3" classN="plus" name='Done' type='submit' />)
+        setButton3(
+            <Button
+                id="done-button-3"
+                classN="plus"
+                name="Done"
+                type="submit"
+            />
+        )
     }, [])
     const cancelJob = (event) => {
         setJobData({
@@ -123,8 +156,8 @@ function CCVExperience() {
             wcity: '',
             wcountry: '',
             desc: '',
-        });
-        reset1();
+        })
+        reset1()
         event.preventDefault()
         setFlagW(0)
     }
@@ -139,8 +172,8 @@ function CCVExperience() {
             scity: '',
             scountry: '',
             descSchool: '',
-        });
-        reset2();
+        })
+        reset2()
         event.preventDefault()
         setFlagS(0)
     }
@@ -150,30 +183,46 @@ function CCVExperience() {
     }
     function handleChange(event) {
         event.target.setCustomValidity('')
-        const { name, value } = event.target;
-        setJobData({ ...jobData, [name]: value });
+        const { name, value } = event.target
+        setJobData({ ...jobData, [name]: value })
     }
     function handleSchoolChange(event) {
         event.target.setCustomValidity('')
-        const { name, value } = event.target;
-        setSchoolData({ ...schoolData, [name]: value });
+        const { name, value } = event.target
+        setSchoolData({ ...schoolData, [name]: value })
     }
     function handleSkillChange(event) {
         event.target.setCustomValidity('')
-        const { name, value } = event.target;
-        setSkillsData({ ...skillsData, [name]: value });
+        const { name, value } = event.target
+        setSkillsData({ ...skillsData, [name]: value })
     }
 
-    const [button1, setButton1] = useState(<Button classN="plus" name='Add Work Experience' click={addWork} />)    
-    const [button2, setButton2] = useState(<Button classN="plus" name='Add School' click={addSchool} />)    
-    const [button3, setButton3] = useState(<Button classN="plus" name='Add Skills and Certifications' click={addSkill} />)    
+    const [button1, setButton1] = useState(
+        <Button classN="plus" name="Add Work Experience" click={addWork} />
+    )
+    const [button2, setButton2] = useState(
+        <Button classN="plus" name="Add School" click={addSchool} />
+    )
+    const [button3, setButton3] = useState(
+        <Button
+            classN="plus"
+            name="Add Skills and Certifications"
+            click={addSkill}
+        />
+    )
 
     useEffect(() => {
         if (flagW === 1) {
             document.getElementById('workField').hidden = false
         } else if (flagW === 0) {
             document.getElementById('workField').hidden = true
-            setButton1(<Button classN="plus" name='Add Work Experience' click={addWork} />)
+            setButton1(
+                <Button
+                    classN="plus"
+                    name="Add Work Experience"
+                    click={addWork}
+                />
+            )
         }
     }, [flagW, addWork])
 
@@ -182,22 +231,36 @@ function CCVExperience() {
             document.getElementById('schoolField').hidden = false
         } else if (flagS === 0) {
             document.getElementById('schoolField').hidden = true
-            setButton2(<Button classN="plus" name='Add School' click={addSchool} />)
+            setButton2(
+                <Button classN="plus" name="Add School" click={addSchool} />
+            )
         }
     }, [flagS, addSchool])
-    
+
     useEffect(() => {
         if (flagC === 1) {
             document.getElementById('skillsField').hidden = false
         } else if (flagC === 0) {
             document.getElementById('skillsField').hidden = true
-            setButton3(<Button classN="plus" name='Add Skills and Certifications' click={addSkill} />)
+            setButton3(
+                <Button
+                    classN="plus"
+                    name="Add Skills and Certifications"
+                    click={addSkill}
+                />
+            )
         } else if (flagC === -1) {
             document.getElementById('skillsField').hidden = true
-            setButton3(<Button classN="plus" name='Edit Skills and Certifications' click={addSkill} />)
+            setButton3(
+                <Button
+                    classN="plus"
+                    name="Edit Skills and Certifications"
+                    click={addSkill}
+                />
+            )
         }
     }, [flagC, addSkill])
-    
+
     useEffect(() => {
         console.log(jobData)
         console.log(schools)
@@ -205,11 +268,11 @@ function CCVExperience() {
     }, [jobData, schools, skills])
 
     function handleInputChange(event) {
-        var input = event.target;
-        var inputValue = input.value;
-        var modifiedValue = inputValue.replace(/(\s+|,+)/g, ',').trim();
-        input.value = modifiedValue;
-    }  
+        var input = event.target
+        var inputValue = input.value
+        var modifiedValue = inputValue.replace(/(\s+|,+)/g, ',').trim()
+        input.value = modifiedValue
+    }
 
     function deleteSection(event) {
         event.preventDefault()
@@ -223,12 +286,16 @@ function CCVExperience() {
                 break
             }
             case 'school': {
-                const newSchools = schools.filter((school, i) => i !== parseInt(index))
+                const newSchools = schools.filter(
+                    (school, i) => i !== parseInt(index)
+                )
                 setSchools(newSchools)
                 break
             }
             case 'skill': {
-                const newSkills = skills.filter((skill, i) => i !== parseInt(index))
+                const newSkills = skills.filter(
+                    (skill, i) => i !== parseInt(index)
+                )
                 setSkills(newSkills)
                 break
             }
@@ -255,7 +322,7 @@ function CCVExperience() {
                     desc: job.desc,
                 })
                 setFlagW(1)
-                setButton1(<Button classN="plus" name='Done' isSubmit={true} />)
+                setButton1(<Button classN="plus" name="Done" isSubmit={true} />)
                 break
             }
             case 'school': {
@@ -272,7 +339,7 @@ function CCVExperience() {
                     descSchool: school.descSchool,
                 })
                 setFlagS(1)
-                setButton2(<Button classN="plus" name='Done' isSubmit={true} />)
+                setButton2(<Button classN="plus" name="Done" isSubmit={true} />)
                 break
             }
             case 'skill': {
@@ -287,122 +354,137 @@ function CCVExperience() {
                     languages: skill.languages.join(', '),
                 })
                 setFlagC(1)
-                setButton3(<Button classN="plus" name='Done' isSubmit={true} />)
+                setButton3(<Button classN="plus" name="Done" isSubmit={true} />)
                 break
             }
         }
     }
 
-    const scrollY = useRef(window.scrollY);
+    const scrollY = useRef(window.scrollY)
 
     useLayoutEffect(() => {
         const handleScroll = () => {
-            scrollY.current = window.scrollY;
-        };
-        window.addEventListener('scroll', handleScroll);
+            scrollY.current = window.scrollY
+        }
+        window.addEventListener('scroll', handleScroll)
         return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+            window.removeEventListener('scroll', handleScroll)
+        }
+    }, [])
 
     useLayoutEffect(() => {
-        window.scrollTo(0, scrollY.current);
-    });
+        window.scrollTo(0, scrollY.current)
+    })
 
     return (
         <>
             <div className="form">
                 <form onSubmit={handleSubmit1(saveWork)}>
-                    <legend className='first-legend'>
+                    <legend className="first-legend">
                         <span className="number">1</span>Work Experience
                         <hr />
                     </legend>
-                    <div className='sections'>
+                    <div className="sections">
                         {jobs.map((job, index) => (
                             <>
-                                <Section 
-                                    key={`job-${index}`} 
-                                    type='work' 
-                                    id={`job-${index}`} 
+                                <Section
+                                    key={`job-${index}`}
+                                    type="work"
+                                    id={`job-${index}`}
                                     deleteSection={deleteSection}
-                                    editSection={editSection} 
-                                    data={
-                                        {
-                                            name: job.cname,
-                                            start: job.startDate,
-                                            end: job.endDate
-                                        }
-                                    } />
+                                    editSection={editSection}
+                                    data={{
+                                        name: job.cname,
+                                        start: job.startDate,
+                                        end: job.endDate,
+                                    }}
+                                />
                             </>
                         ))}
                     </div>
-                    <fieldset id='workField' className="field" hidden>
+                    <fieldset id="workField" className="field" hidden>
                         <label htmlFor="companyName">Company Name</label>
                         <input
                             id="companyName"
                             type="text"
-                            name='cname'
+                            name="cname"
                             required
                             placeholder="Company"
                             value={jobData.cname}
-                            onChange={handleChange} />
+                            onChange={handleChange}
+                        />
                         <label htmlFor="jobTitle">Job Title</label>
                         <input
                             id="jobTitle"
                             type="text"
-                            name='jtitle'
+                            name="jtitle"
                             required
                             placeholder="Software Engineer"
                             value={jobData.jtitle}
-                            onChange={handleChange} />
+                            onChange={handleChange}
+                        />
                         <label htmlFor="sDate">Start Date</label>
                         <input
                             id="sDate"
                             type="date"
-                            name='startDate'
+                            name="startDate"
                             required
                             value={jobData.startDate}
-                            onChange={handleChange} />
+                            onChange={handleChange}
+                        />
                         <label htmlFor="eDate">End Date</label>
                         <input
                             id="eDate"
                             type="date"
-                            name='endDate'
+                            name="endDate"
                             value={jobData.endDate}
-                            onChange={handleChange} />
+                            onChange={handleChange}
+                        />
                         <label htmlFor="wcity">City</label>
                         <input
                             id="wcity"
                             type="text"
-                            name='wcity'
+                            name="wcity"
                             required
-                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid city name')}
-                            pattern='[A-Za-z]+'
+                            onInvalid={(event) =>
+                                event.target.setCustomValidity(
+                                    'Must be a valid city name'
+                                )
+                            }
+                            pattern="[A-Za-z]+"
                             placeholder="Cairo"
                             value={jobData.wcity}
-                            onChange={handleChange} />
+                            onChange={handleChange}
+                        />
                         <label htmlFor="wcountry">Country</label>
                         <input
                             id="wcountry"
                             type="text"
-                            name='wcountry'
+                            name="wcountry"
                             required
-                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid country name')}
-                            pattern='[A-Za-z]+'
+                            onInvalid={(event) =>
+                                event.target.setCustomValidity(
+                                    'Must be a valid country name'
+                                )
+                            }
+                            pattern="[A-Za-z]+"
                             placeholder="Egypt"
                             value={jobData.wcountry}
-                            onChange={handleChange} />
+                            onChange={handleChange}
+                        />
                         <label htmlFor="role">Description</label>
                         <textarea
                             id="role"
                             placeholder="What did you do?"
-                            name='desc'
+                            name="desc"
                             value={jobData.desc}
-                            onChange={handleChange}>
-                        </textarea>
+                            onChange={handleChange}
+                        ></textarea>
                     </fieldset>
                     {button1}
-                    {(button1.props.name === 'Done') && <Button classN="plus" name='Cancel' click={cancelJob} />}
+                    {button1.props.name === 'Done' && (
+                        <Button classN="plus" name="Cancel" click={cancelJob} />
+                    )}
                 </form>
 
                 <form onSubmit={handleSubmit2(saveSchool)}>
@@ -410,101 +492,121 @@ function CCVExperience() {
                         <span className="number">2</span>Education
                         <hr />
                     </legend>
-                    <div className='sections'>
+                    <div className="sections">
                         {schools.map((school, index) => (
                             <>
-                                <Section 
-                                    key={`school-${index}`}  
-                                    type='education' 
-                                    id={`school-${index}`} 
+                                <Section
+                                    key={`school-${index}`}
+                                    type="education"
+                                    id={`school-${index}`}
                                     deleteSection={deleteSection}
-                                    editSection={editSection} 
-                                    data={
-                                        {
-                                            name: school.uni,
-                                            start: school.startDateSchool,
-                                            end: school.endDateSchool
-                                        }
-                                    } />
+                                    editSection={editSection}
+                                    data={{
+                                        name: school.uni,
+                                        start: school.startDateSchool,
+                                        end: school.endDateSchool,
+                                    }}
+                                />
                             </>
                         ))}
                     </div>
-                    <fieldset id='schoolField' className="field" hidden>
+                    <fieldset id="schoolField" className="field" hidden>
                         <label htmlFor="uni">University Name</label>
                         <input
                             id="uni"
                             type="text"
-                            name='uni'
+                            name="uni"
                             required
                             placeholder="German University in Cairo"
                             value={schoolData.uni}
-                            onChange={handleSchoolChange} />
+                            onChange={handleSchoolChange}
+                        />
                         <label htmlFor="degree">Degree</label>
                         <input
                             id="degree"
                             type="text"
-                            name='degree'
+                            name="degree"
                             required
                             placeholder="Bachelor of Science"
                             value={schoolData.degree}
-                            onChange={handleSchoolChange} />
+                            onChange={handleSchoolChange}
+                        />
                         <label htmlFor="major">Major</label>
                         <input
                             id="major"
                             type="text"
-                            name='major'
+                            name="major"
                             required
-                            placeholder='Computer Science'
+                            placeholder="Computer Science"
                             value={schoolData.major}
-                            onChange={handleSchoolChange} />
+                            onChange={handleSchoolChange}
+                        />
                         <label htmlFor="startDateSchool">Start Date</label>
                         <input
                             id="startDateSchool"
                             type="date"
-                            name='startDateSchool'
+                            name="startDateSchool"
                             required
                             value={schoolData.startDateSchool}
-                            onChange={handleSchoolChange} />
+                            onChange={handleSchoolChange}
+                        />
                         <label htmlFor="endDateSchool">End Date</label>
                         <input
                             id="endDateSchool"
                             type="date"
-                            name='endDateSchool'
+                            name="endDateSchool"
                             value={schoolData.endDateSchool}
-                            onChange={handleSchoolChange} />
+                            onChange={handleSchoolChange}
+                        />
                         <label htmlFor="scity">City</label>
                         <input
                             id="scity"
                             type="text"
-                            name='scity'
+                            name="scity"
                             placeholder="Cairo"
                             required
-                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid city name')}
-                            pattern='[A-Za-z]+'
+                            onInvalid={(event) =>
+                                event.target.setCustomValidity(
+                                    'Must be a valid city name'
+                                )
+                            }
+                            pattern="[A-Za-z]+"
                             value={schoolData.scity}
-                            onChange={handleSchoolChange} />
+                            onChange={handleSchoolChange}
+                        />
                         <label htmlFor="scountry">Country</label>
                         <input
                             id="scountry"
                             type="text"
-                            name='scountry'
+                            name="scountry"
                             placeholder="Egypt"
                             required
-                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid country name')}
-                            pattern='[A-Za-z]+'
+                            onInvalid={(event) =>
+                                event.target.setCustomValidity(
+                                    'Must be a valid country name'
+                                )
+                            }
+                            pattern="[A-Za-z]+"
                             value={schoolData.scountry}
-                            onChange={handleSchoolChange} />
+                            onChange={handleSchoolChange}
+                        />
                         <label htmlFor="roleSchool">Description</label>
                         <textarea
                             id="roleSchool"
-                            name='descSchool'
+                            name="descSchool"
                             placeholder="Anymore relevant information?"
                             value={schoolData.descSchool}
-                            onChange={handleSchoolChange}>
-                        </textarea>
+                            onChange={handleSchoolChange}
+                        ></textarea>
                     </fieldset>
                     {button2}
-                    {(button2.props.name === 'Done') && <Button classN="plus" name='Cancel' click={cancelSchool} />}
+                    {button2.props.name === 'Done' && (
+                        <Button
+                            classN="plus"
+                            name="Cancel"
+                            click={cancelSchool}
+                        />
+                    )}
                 </form>
 
                 <form onSubmit={handleSubmit3(saveSkills)}>
@@ -512,86 +614,103 @@ function CCVExperience() {
                         <span className="number">3</span>Skills & Certifications
                         <hr />
                     </legend>
-                    <div className='sections'>
+                    <div className="sections">
                         {skills.map((skill, index) => (
                             <>
-                                <Section 
-                                    key={`skill-${index}`} 
-                                    type='skills' 
-                                    id={`skill-${index}`} 
+                                <Section
+                                    key={`skill-${index}`}
+                                    type="skills"
+                                    id={`skill-${index}`}
                                     deleteSection={deleteSection}
-                                    editSection={editSection} 
-                                    data={
-                                        {
-                                            certificates: skill.certificates.split(',').map(item => item.trim()),
-                                            skills: skill.skills.split(',').map(item => item.trim()),
-                                            courses: skill.courses.split(',').map(item => item.trim()),
-                                            interests: skill.interests.split(',').map(item => item.trim()),
-                                            references: skill.references.split(',').map(item => item.trim()),
-                                            languages: skill.languages.split(',').map(item => item.trim()),
-                                        }
-                                    } />
+                                    editSection={editSection}
+                                    data={{
+                                        certificates: skill.certificates
+                                            .split(',')
+                                            .map((item) => item.trim()),
+                                        skills: skill.skills
+                                            .split(',')
+                                            .map((item) => item.trim()),
+                                        courses: skill.courses
+                                            .split(',')
+                                            .map((item) => item.trim()),
+                                        interests: skill.interests
+                                            .split(',')
+                                            .map((item) => item.trim()),
+                                        references: skill.references
+                                            .split(',')
+                                            .map((item) => item.trim()),
+                                        languages: skill.languages
+                                            .split(',')
+                                            .map((item) => item.trim()),
+                                    }}
+                                />
                             </>
                         ))}
                     </div>
-                    <fieldset id='skillsField' className="field" hidden>
+                    <fieldset id="skillsField" className="field" hidden>
                         <label htmlFor="certificates">Certifications</label>
                         <textarea
                             onInput={handleInputChange}
                             id="certificates"
-                            name='certificates'
+                            name="certificates"
                             placeholder="Any certifications?"
                             value={skillsData.certificates}
-                            onChange={handleSkillChange}>
-                        </textarea>
+                            onChange={handleSkillChange}
+                        ></textarea>
                         <label htmlFor="skills">Skills</label>
                         <textarea
                             onInput={handleInputChange}
                             id="skills"
-                            name='skills'
+                            name="skills"
                             placeholder="Any skills?"
                             value={skillsData.skills}
-                            onChange={handleSkillChange}>
-                        </textarea>
+                            onChange={handleSkillChange}
+                        ></textarea>
                         <label htmlFor="courses">Courses</label>
                         <textarea
                             onInput={handleInputChange}
                             id="courses"
-                            name='courses'
+                            name="courses"
                             placeholder="Any courses?"
                             value={skillsData.courses}
-                            onChange={handleSkillChange}>
-                        </textarea>
+                            onChange={handleSkillChange}
+                        ></textarea>
                         <label htmlFor="interests">Interests</label>
                         <textarea
                             onInput={handleInputChange}
                             id="interests"
-                            name='interests'
+                            name="interests"
                             placeholder="Any interests?"
                             value={skillsData.interests}
-                            onChange={handleSkillChange}>
-                        </textarea>
+                            onChange={handleSkillChange}
+                        ></textarea>
                         <label htmlFor="languages">Languages</label>
                         <textarea
                             onInput={handleInputChange}
                             id="languages"
-                            name='languages'
+                            name="languages"
                             placeholder="Any languages?"
                             value={skillsData.languages}
-                            onChange={handleSkillChange}>
-                        </textarea>
+                            onChange={handleSkillChange}
+                        ></textarea>
                         <label htmlFor="references">References</label>
                         <textarea
                             onInput={handleInputChange}
                             id="references"
-                            name='references'
+                            name="references"
                             placeholder="Any references?"
                             value={skillsData.references}
-                            onChange={handleSkillChange}>
-                        </textarea>
+                            onChange={handleSkillChange}
+                        ></textarea>
                     </fieldset>
                     {button3}
-                    {(button3.props.name === 'Done') && <Button classN="plus" name='Cancel' click={cancelSkills} />}
+                    {button3.props.name === 'Done' && (
+                        <Button
+                            classN="plus"
+                            name="Cancel"
+                            click={cancelSkills}
+                        />
+                    )}
                 </form>
             </div>
         </>

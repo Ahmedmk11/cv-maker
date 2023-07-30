@@ -2,10 +2,10 @@ import React from 'react'
 import { useState, useLayoutEffect, useRef } from 'react'
 import Progress from '../components/Progress.jsx'
 import Button from '../components/Button.jsx'
-import { useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form'
 
 function CCVPersonal() {
-    const { handleSubmit, reset } = useForm();
+    const { handleSubmit, reset } = useForm()
     const [personalData, setPersonalData] = useState({
         fname: '',
         lname: '',
@@ -17,26 +17,26 @@ function CCVPersonal() {
         website: '',
     })
 
-    const scrollY = useRef(window.scrollY);
+    const scrollY = useRef(window.scrollY)
 
     useLayoutEffect(() => {
         const handleScroll = () => {
-            scrollY.current = window.scrollY;
-        };
-        window.addEventListener('scroll', handleScroll);
+            scrollY.current = window.scrollY
+        }
+        window.addEventListener('scroll', handleScroll)
         return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+            window.removeEventListener('scroll', handleScroll)
+        }
+    }, [])
 
     useLayoutEffect(() => {
-        window.scrollTo(0, scrollY.current);
-    });
+        window.scrollTo(0, scrollY.current)
+    })
 
     function handleChange(event) {
         event.target.setCustomValidity('')
-        const { name, value } = event.target;
-        setPersonalData({ ...personalData, [name]: value });
+        const { name, value } = event.target
+        setPersonalData({ ...personalData, [name]: value })
     }
 
     function savePersonal() {
@@ -47,9 +47,8 @@ function CCVPersonal() {
         <>
             <div className="form">
                 <form onSubmit={handleSubmit(savePersonal)}>
-                    <legend className='first-legend'>
-                        <span className="number">1</span> Personal
-                        Info
+                    <legend className="first-legend">
+                        <span className="number">1</span> Personal Info
                         <hr />
                     </legend>
                     <fieldset>
@@ -61,8 +60,12 @@ function CCVPersonal() {
                             placeholder="John"
                             required
                             value={personalData.fname}
-                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid name')}
-                            pattern='[A-Za-z]+'
+                            onInvalid={(event) =>
+                                event.target.setCustomValidity(
+                                    'Must be a valid name'
+                                )
+                            }
+                            pattern="[A-Za-z]+"
                             onChange={handleChange}
                         />
                         <label htmlFor="lname">Last Name</label>
@@ -73,8 +76,12 @@ function CCVPersonal() {
                             placeholder="Smith"
                             required
                             value={personalData.lname}
-                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid name')}
-                            pattern='[A-Za-z]+'
+                            onInvalid={(event) =>
+                                event.target.setCustomValidity(
+                                    'Must be a valid name'
+                                )
+                            }
+                            pattern="[A-Za-z]+"
                             onChange={handleChange}
                         />
                         <label htmlFor="email">Email Address</label>
@@ -85,7 +92,11 @@ function CCVPersonal() {
                             placeholder="johnsmith@email.com"
                             required
                             value={personalData.email}
-                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid email, e.g. email@email.com')}
+                            onInvalid={(event) =>
+                                event.target.setCustomValidity(
+                                    'Must be a valid email, e.g. email@email.com'
+                                )
+                            }
                             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}"
                             onChange={handleChange}
                         />
@@ -107,8 +118,12 @@ function CCVPersonal() {
                             placeholder="Cairo"
                             required
                             value={personalData.city}
-                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid city name')}
-                            pattern='[A-Za-z]+'
+                            onInvalid={(event) =>
+                                event.target.setCustomValidity(
+                                    'Must be a valid city name'
+                                )
+                            }
+                            pattern="[A-Za-z]+"
                             onChange={handleChange}
                         />
                         <label htmlFor="country">Country</label>
@@ -119,8 +134,12 @@ function CCVPersonal() {
                             placeholder="Egypt"
                             required
                             value={personalData.country}
-                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid country name')}
-                            pattern='[A-Za-z]+'
+                            onInvalid={(event) =>
+                                event.target.setCustomValidity(
+                                    'Must be a valid country name'
+                                )
+                            }
+                            pattern="[A-Za-z]+"
                             onChange={handleChange}
                         />
                     </fieldset>
@@ -135,7 +154,11 @@ function CCVPersonal() {
                             name="linkedin"
                             id="linkedin"
                             placeholder="https://www.linkedin.com/in/user-id/"
-                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid url, e.g. https://www.linkedin.com/in/user-id/')}
+                            onInvalid={(event) =>
+                                event.target.setCustomValidity(
+                                    'Must be a valid url, e.g. https://www.linkedin.com/in/user-id/'
+                                )
+                            }
                             pattern="https?://(www\.)?linkedin\.com/.*"
                             onChange={handleChange}
                             value={personalData.linkedin}
@@ -146,13 +169,17 @@ function CCVPersonal() {
                             name="website"
                             id="website"
                             placeholder="https://github.com/ahmedmk11"
-                            onInvalid={(event) => event.target.setCustomValidity('Must be a valid url, e.g. https://github.com/username')}
+                            onInvalid={(event) =>
+                                event.target.setCustomValidity(
+                                    'Must be a valid url, e.g. https://github.com/username'
+                                )
+                            }
                             pattern="https?://.+"
                             onChange={handleChange}
                             value={personalData.website}
                         />
                     </fieldset>
-                    <Button classN="plus" name='Done' type='submit' />
+                    <Button classN="plus" name="Done" type="submit" />
                 </form>
             </div>
         </>

@@ -29,15 +29,18 @@ function CreateCV(props) {
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
 
-    document.getElementById('circle0') && document.getElementById('circle0').addEventListener('click', () => {
-        setCount(0)
-    })
-    document.getElementById('circle1') && document.getElementById('circle1').addEventListener('click', () => {
-        setCount(1)
-    })
-    document.getElementById('circle2') && document.getElementById('circle2').addEventListener('click', () => {
-        setCount(2)
-    })
+    document.getElementById('circle0') &&
+        document.getElementById('circle0').addEventListener('click', () => {
+            setCount(0)
+        })
+    document.getElementById('circle1') &&
+        document.getElementById('circle1').addEventListener('click', () => {
+            setCount(1)
+        })
+    document.getElementById('circle2') &&
+        document.getElementById('circle2').addEventListener('click', () => {
+            setCount(2)
+        })
 
     useEffect(() => {
         if (count === 0) {
@@ -67,14 +70,14 @@ function CreateCV(props) {
                 city: document.getElementById('city').value,
                 country: document.getElementById('country').value,
                 linkedin: document.getElementById('linkedin').value,
-                website: document.getElementById('website').value
+                website: document.getElementById('website').value,
             })
         }
         if (count === 1) {
             setExperienceInfo({
                 jobs: jobs,
                 schools: schools,
-                skills: skills
+                skills: skills,
             })
         }
 
@@ -96,7 +99,18 @@ function CreateCV(props) {
     }, [personalInfo, ExperienceInfo, template])
 
     return (
-        <DataContext.Provider value={{ jobs, setJobs, schools, setSchools, skills, setSkills, template, setTemplate }}>
+        <DataContext.Provider
+            value={{
+                jobs,
+                setJobs,
+                schools,
+                setSchools,
+                skills,
+                setSkills,
+                template,
+                setTemplate,
+            }}
+        >
             <Header
                 isSelected={{
                     isSelected1: false,
@@ -142,7 +156,9 @@ function CreateCV(props) {
                     name={count === 2 ? 'Finish' : 'Next Step   \u203A'}
                     click={nextClick}
                 />
-                <p id='previous-p' onClick={prevClick}>&#8249;   Previous Step</p>
+                <p id="previous-p" onClick={prevClick}>
+                    &#8249; Previous Step
+                </p>
             </div>
             <Footer />
         </DataContext.Provider>
