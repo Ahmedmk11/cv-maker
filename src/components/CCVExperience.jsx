@@ -312,8 +312,6 @@ function CCVExperience() {
 
     return (
         <>
-            <Progress progress={'1'} />
-            <h1>Experience & Education</h1>
             <div className="form">
                 <form onSubmit={handleSubmit1(saveWork)}>
                     <legend className='first-legend'>

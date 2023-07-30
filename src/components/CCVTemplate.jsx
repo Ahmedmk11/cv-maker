@@ -51,8 +51,6 @@ function CCVTemplate() {
 
     return (
         <>
-            <Progress progress={'2'} />
-            <h1>Templates</h1>
             <div id="templates">
                 <div className="temp-item" onClick={chooseTemplate}>
                     <h3>Template 1</h3>

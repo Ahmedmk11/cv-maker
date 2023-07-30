@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import Header from '../components/Header.jsx'
 import Footer from '../components/Footer.jsx'
 import Button from '../components/Button.jsx'
+import Progress from '../components/Progress.jsx'
 import backPicAct from '../assets/images/icons/back.svg'
 import backPicDeAct from '../assets/images/icons/backGray.svg'
 
@@ -27,6 +28,16 @@ function CreateCV(props) {
 
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
+
+    document.getElementById('circle0').addEventListener('click', () => {
+        setCount(0)
+    })
+    document.getElementById('circle1').addEventListener('click', () => {
+        setCount(1)
+    })
+    document.getElementById('circle2').addEventListener('click', () => {
+        setCount(2)
+    })
 
     useEffect(() => {
         if (count === 0) {
@@ -102,11 +113,29 @@ function CreateCV(props) {
             <div id="createcv-body">
                 {(() => {
                     if (stage === '0') {
-                        return <CCVPersonal />
+                        return (
+                            <>
+                                <h1>Personal Details</h1>
+                                <Progress progress={'0'} />
+                                <CCVPersonal />
+                            </>
+                        )
                     } else if (stage === '1') {
-                        return <CCVExperience />
+                        return (
+                            <>
+                                <h1>Experience and Education</h1>
+                                <Progress progress={'1'} />
+                                <CCVExperience />
+                            </>
+                        )
                     } else {
-                        return <CCVTemplate />
+                        return (
+                            <>
+                                <h1>Templates</h1>
+                                <Progress progress={'2'} />
+                                <CCVTemplate />
+                            </>
+                        )
                     }
                 })()}
                 <Button

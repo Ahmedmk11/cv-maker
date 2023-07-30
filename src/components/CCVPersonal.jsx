@@ -45,8 +45,6 @@ function CCVPersonal() {
 
     return (
         <>
-            <Progress progress={'0'} />
-            <h1>Personal Details</h1>
             <div className="form">
                 <form onSubmit={handleSubmit(savePersonal)}>
                     <legend className='first-legend'>

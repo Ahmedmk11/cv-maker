@@ -293,7 +293,7 @@ form {
 }
 
 .form .number {
-  background: #3E6B8F;
+  background: #1e4b70;
   color: #fff;
   height: 30px;
   width: 30px;
@@ -459,6 +459,35 @@ textarea {
 
 .selected-template {
   box-shadow: 0px 0px 10px 0px rgba(115, 115, 115, 0.4);
+}
+
+#progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+#progress-bar .circle {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #ddd;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+#progress-bar .circle.active {
+  background-color: #1e4b70;
+}
+#progress-bar .line {
+  width: 300px;
+  height: 10px;
+  background-color: #ddd;
 }
 
 /*# sourceMappingURL=components.css.map */
