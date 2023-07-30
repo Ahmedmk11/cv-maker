@@ -56,7 +56,7 @@ function CreateCV(props) {
         } else if (count === 2) {
             navigate('/create/template')
         } else if (count === 3) {
-            navigate('/')
+            navigate('/export')
         }
     }, [count, navigate])
 

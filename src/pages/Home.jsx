@@ -33,13 +33,13 @@ function Home() {
                         <h3>In three simple steps</h3>
                         <ol>
                             <li>
+                                <strong>Fill</strong> in your personal and professional information.
+                            </li>
+                            <li>
                                 <strong>Choose</strong> any template you prefer.
                             </li>
                             <li>
-                                <strong>Create</strong> your CV.
-                            </li>
-                            <li>
-                                <strong>Download</strong> it as a PDF or a PNG &
+                                <strong>Download</strong> it as a Word, PDF or a PNG &
                                 share it!
                             </li>
                         </ol>

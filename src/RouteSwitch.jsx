@@ -8,6 +8,7 @@ import PageNotFound from './pages/PageNotFound.jsx'
 import About from './pages/About.jsx'
 import Terms from './pages/Terms.jsx'
 import Support from './pages/Support.jsx'
+import Export from './pages/Export.jsx'
 
 const RouteSwitch = () => {
     return (
@@ -30,6 +31,7 @@ const RouteSwitch = () => {
             <Route path="/about" element={<About />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/support" element={<Support />} />
+            <Route path="/export" element={<Export />} />
         </Routes>
     )
 }

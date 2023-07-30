@@ -88,7 +88,7 @@ function Support() {
                                     <option value="Technical">
                                         Technical Problem
                                     </option>
-                                    <option value="General">General</option>
+                                    <option value="General">General Inquiry</option>
                                 </select>
                                 <br />
                                 <label htmlFor="support-email">Email</label>
