@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import BounceLoader from 'react-spinners/BounceLoader'
 
@@ -41,20 +41,14 @@ function Support() {
             message.reportValidity()
         ) {
             setLoading(true)
-            Promise.all([
-                sendMail(topic.value, email.value, message.value),
-                new Promise((resolve) => setTimeout(resolve, 2000)),
-            ])
-                .then(function () {
-                    setLoading(false)
-                    navigate('/')
-                })
-                .catch(function (err) {
-                    console.log(err)
-                })
+            sendMail(topic.value, email.value, message.value)
+            setTimeout(() => {
+                setLoading(false)
+                navigate('/')
+            }, 3000)
         }
     }
-
+    
     return (
         <>
             <Header
