@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-
 var express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
@@ -15,15 +14,15 @@ app.use(
 
 app.use(bodyParser.json())
 
-app.post('/', (req, res) => {
-    let messageTitle = req.body.curr.topic
-    let messageEmail = req.body.curr.email
-    let messageBody = req.body.curr.message
+app.post('/support', (req, res) => {
+    let messageTitle = req.body.topic
+    let messageEmail = req.body.email
+    let messageBody = req.body.message
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
             user: 'resumiomail@gmail.com',
-            pass: process.env.pass,
+            pass: process.env.pass
         },
     })
 
@@ -56,9 +55,13 @@ app.post('/', (req, res) => {
 
     transporter.sendMail(mailOptions, function (error) {
         if (error) {
-            console.log(error)
+            console.log(error);
+            res.status(500).send('An error occurred while sending the email');
+        } else {
+            console.log('Email sent <3');
+            res.send('Email sent successfully');
         }
-    })
+    });    
 })
 
 app.listen(port, (err) => {
