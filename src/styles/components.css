@@ -468,26 +468,36 @@ textarea {
   margin-bottom: 30px;
 }
 #progress-bar .circle {
-  width: 45px;
-  height: 45px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background-color: #ddd;
-  color: #fff;
+  background-color: #F4F7F8;
+  color: #1e4b70;
   text-align: center;
   line-height: 30px;
   font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: -1px;
+  z-index: 1000;
   cursor: pointer;
 }
 #progress-bar .circle.active {
   background-color: #1e4b70;
+  color: #fff;
 }
 #progress-bar .line {
+  margin: -1px;
   width: 300px;
   height: 10px;
-  background-color: #ddd;
+  background-color: #F4F7F8;
+}
+#progress-bar .active-line {
+  width: 300px;
+  height: 10px;
+  background-color: #1e4b70;
+  color: #fff;
 }
 
 /*# sourceMappingURL=components.css.map */
