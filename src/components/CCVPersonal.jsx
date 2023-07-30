@@ -48,7 +48,7 @@ function CCVPersonal() {
             <div className="form">
                 <form onSubmit={handleSubmit(savePersonal)}>
                     <legend className='first-legend'>
-                        <span className="number">1</span> <sup>*</sup>Personal
+                        <span className="number">1</span> Personal
                         Info
                         <hr />
                     </legend>
