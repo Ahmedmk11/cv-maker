@@ -53,7 +53,7 @@ function Home() {
                         <span>
                             By clicking &quot;Start Creating Now!&quot;, you
                             will begin creating your resume and you agree to our{' '}
-                            <Link to={'terms'} className="link">
+                            <Link to={'/terms'} className="link">
                                 Terms
                             </Link>
                             .

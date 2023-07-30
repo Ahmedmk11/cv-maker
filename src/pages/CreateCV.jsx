@@ -29,13 +29,13 @@ function CreateCV(props) {
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
 
-    document.getElementById('circle0').addEventListener('click', () => {
+    document.getElementById('circle0') && document.getElementById('circle0').addEventListener('click', () => {
         setCount(0)
     })
-    document.getElementById('circle1').addEventListener('click', () => {
+    document.getElementById('circle1') && document.getElementById('circle1').addEventListener('click', () => {
         setCount(1)
     })
-    document.getElementById('circle2').addEventListener('click', () => {
+    document.getElementById('circle2') && document.getElementById('circle2').addEventListener('click', () => {
         setCount(2)
     })
 

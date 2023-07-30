@@ -1,7 +1,6 @@
 /* eslint-disable indent */
 import React from 'react'
 import { useState , useEffect , useCallback, useContext, useLayoutEffect, useRef } from 'react'
-import Progress from '../components/Progress.jsx'
 import Button from '../components/Button.jsx'
 import { useForm } from 'react-hook-form';
 import Section from './Section.jsx';
@@ -266,14 +265,14 @@ function CCVExperience() {
                     uni: school.uni,
                     degree: school.degree,
                     major: school.major,
-                    startDateSchool: school.startDate,
-                    endDateSchool: school.endDate,
+                    startDateSchool: school.startDateSchool,
+                    endDateSchool: school.endDateSchool,
                     scity: school.scity,
                     scountry: school.scountry,
                     descSchool: school.descSchool,
                 })
                 setFlagS(1)
-                setButton1(<Button classN="plus" name='Done' isSubmit={true} />)
+                setButton2(<Button classN="plus" name='Done' isSubmit={true} />)
                 break
             }
             case 'skill': {
@@ -288,7 +287,7 @@ function CCVExperience() {
                     languages: skill.languages.join(', '),
                 })
                 setFlagC(1)
-                setButton1(<Button classN="plus" name='Done' isSubmit={true} />)
+                setButton3(<Button classN="plus" name='Done' isSubmit={true} />)
                 break
             }
         }
@@ -458,17 +457,17 @@ function CCVExperience() {
                             placeholder='Computer Science'
                             value={schoolData.major}
                             onChange={handleSchoolChange} />
-                        <label htmlFor="sDateSchool">Start Date</label>
+                        <label htmlFor="startDateSchool">Start Date</label>
                         <input
-                            id="sDateSchool"
+                            id="startDateSchool"
                             type="date"
                             name='startDateSchool'
                             required
-                            value={schoolData.startDate}
+                            value={schoolData.startDateSchool}
                             onChange={handleSchoolChange} />
-                        <label htmlFor="eDateSchool">End Date</label>
+                        <label htmlFor="endDateSchool">End Date</label>
                         <input
-                            id="eDateSchool"
+                            id="endDateSchool"
                             type="date"
                             name='endDateSchool'
                             value={schoolData.endDateSchool}
