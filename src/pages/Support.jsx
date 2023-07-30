@@ -15,7 +15,7 @@ function Support() {
             message: m,
         }
         let msgStr = await JSON.stringify(msg)
-        let response = await fetch('', {
+        let response = await fetch('https://resumio-rho.vercel.app/', {
             method: `POST`,
             headers: { 'Content-Type': 'application/json' },
             body: msgStr,
