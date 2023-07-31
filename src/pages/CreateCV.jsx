@@ -18,8 +18,6 @@ import Export from './Export.jsx'
 
 function CreateCV(props) {
     const [count, setCount] = useState(0)
-    const [personalInfo, setPersonalInfo] = useState({})
-    const [experienceInfo, setexperienceInfo] = useState({})
     const [template, setTemplate] = useState('')
     const [jobs, setJobs] = useState([])
     const [schools, setSchools] = useState([])
@@ -62,26 +60,6 @@ function CreateCV(props) {
     }, [count, navigate])
 
     const nextClick = () => {
-        if (count === 0) {
-            setPersonalInfo({
-                fname: document.getElementById('fname').value,
-                lname: document.getElementById('lname').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                city: document.getElementById('city').value,
-                country: document.getElementById('country').value,
-                linkedin: document.getElementById('linkedin').value,
-                website: document.getElementById('website').value,
-            })
-        }
-        if (count === 1) {
-            setexperienceInfo({
-                jobs: jobs,
-                schools: schools,
-                skills: skills,
-            })
-        }
-
         if (count <= 2) {
             setCount(count + 1)
         }
@@ -148,11 +126,7 @@ function CreateCV(props) {
                     } else {
                         return (
                             <>
-                                <Export
-                                    personal={personalInfo}
-                                    experience={experienceInfo}
-                                    template={template}
-                                />
+                                <Export />
                             </>
                         )
                     }

@@ -1,6 +1,4 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header.jsx'
 import Footer from '../components/Footer.jsx'
 import Button from '../components/Button.jsx'
@@ -10,10 +8,12 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 
-function Export(props) {
-    const { personal, experience, template } = props
+function Export() {
     const [format, setFormat] = useState('docx')
-
+    const [personal, setPersonal] = useState({})
+    const [experience, setexperience] = useState({})
+    const [template, setTemplate] = useState('')
+    const [isDownloading, setIsDownloading] = useState(false)
     const handleChange = (event) => {
         setFormat(event.target.value)
     }
@@ -27,7 +27,19 @@ function Export(props) {
         return true
     }
 
+    useEffect(() => {
+        setPersonal(JSON.parse(localStorage.getItem('personalData')))
+        setexperience({
+            jobs: JSON.parse(localStorage.getItem('jobs')),
+            schools: JSON.parse(localStorage.getItem('schools')),
+            skills: [JSON.parse(localStorage.getItem('skillsData'))],
+        })
+        setTemplate(JSON.parse(localStorage.getItem('chosenTemplate')))
+    }, [])
+
     const exportCV = async () => {
+        setIsDownloading(true)
+        console.log('exporting in export comp', experience)
         if (checkValues(personal) & (template !== '')) {
             const response = await fetch(
                 'https://resumio-server.onrender.com/export',
@@ -49,7 +61,7 @@ function Export(props) {
                 const url = window.URL.createObjectURL(blob)
                 const link = document.createElement('a')
                 link.href = url
-                link.download = `${personal.fname}-${personal.fname}-resume.${format}`
+                link.download = `${personal.fname}-${personal.lname}-resume.${format}`
                 document.body.appendChild(link)
                 link.click()
                 document.body.removeChild(link)
@@ -59,6 +71,7 @@ function Export(props) {
         } else {
             console.log('missing data')
         }
+        setIsDownloading(false)
     }
 
     return (
@@ -77,49 +90,43 @@ function Export(props) {
                         <p>Your CV has been generated successfully!</p>
                     </div>
                     <div id="bottom">
-                        <Box sx={{ minWidth: 200 }}>
-                            <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">
-                                    Format
-                                </InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={format}
-                                    label="Format"
-                                    onChange={handleChange}
-                                >
-                                    <MenuItem value={'docx'}>
-                                        Word Document
-                                    </MenuItem>
-                                    <MenuItem value={'pdf'}>PDF</MenuItem>
-                                    <MenuItem value={'png'}>Image</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Box>
-                        <Button
-                            name={'Export'}
-                            classN={'default-button'}
-                            click={exportCV}
-                        />
+                        {isDownloading ? (
+                            <p>File is being downloaded...</p>
+                        ) : (
+                            <>
+                                <Box sx={{ minWidth: 200 }}>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="demo-simple-select-label">
+                                            Format
+                                        </InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={format}
+                                            label="Format"
+                                            onChange={handleChange}
+                                        >
+                                            <MenuItem value={'docx'}>
+                                                Word Document
+                                            </MenuItem>
+                                            <MenuItem value={'pdf'}>PDF</MenuItem>
+                                            <MenuItem value={'png'}>Image</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Box>
+                                <Button
+                                    name={'Export'}
+                                    classN={'default-button'}
+                                    click={exportCV}
+                                />
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
             <Footer />
         </>
     )
-}
-
-Export.propTypes = {
-    personal: PropTypes.object,
-    experience: PropTypes.object,
-    template: PropTypes.string,
-}
-
-Export.defaultProps = {
-    personal: {},
-    experience: {},
-    template: '1',
 }
 
 export default Export

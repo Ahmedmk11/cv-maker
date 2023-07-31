@@ -1,17 +1,11 @@
-// eslint-disable-next-line no-undef
+/* eslint-disable no-undef */
 var express = require('express')
-// eslint-disable-next-line no-undef
 const fs = require('fs')
-// eslint-disable-next-line no-undef
 const cors = require('cors')
-// eslint-disable-next-line no-undef
 const bodyParser = require('body-parser')
-// eslint-disable-next-line no-undef
 const { TemplateHandler } = require('easy-template-x')
-// eslint-disable-next-line no-undef
 var nodemailer = require('nodemailer')
 var app = express()
-// eslint-disable-next-line no-undef
 let port = process.env.PORT || 8080
 
 app.use(
@@ -22,30 +16,49 @@ app.use(
 
 app.use(bodyParser.json())
 
+const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
 const cleanData = (personalInfo, experienceInfo) => {
+    const newPersonalInfo = {
+        ...personalInfo,
+        fname: capitalizeFirstLetter(personalInfo.fname),
+        lname: capitalizeFirstLetter(personalInfo.lname),
+        city: capitalizeFirstLetter(personalInfo.city),
+        country: capitalizeFirstLetter(personalInfo.country),
+    }
     const newExperienceInfo = {
         jobs: experienceInfo.jobs.map((job) => ({
             ...job,
             endDate: job.endDate
-                ? `${job.startDate.split(' ')[0].slice(0, 3)} ${
-                    job.startDate.split(' ')[1]
-                } - ${job.endDate.split(' ')[0].slice(0, 3)} ${
-                    job.endDate.split(' ')[1]
-                }`
-                : `${job.startDate.split(' ')[0].slice(0, 3)} ${
-                    job.startDate.split(' ')[1]
-                }`,
+                ? `${new Date(job.startDate).toLocaleString('default', {
+                    month: 'short',
+                })} ${new Date(job.startDate).getFullYear()} - ${
+                    new Date(job.endDate).toLocaleString('default', {
+                        month: 'short',
+                    })
+                } ${new Date(job.endDate).getFullYear()}`
+                : `${new Date(job.startDate).toLocaleString('default', {
+                    month: 'short',
+                })} ${new Date(job.startDate).getFullYear()}`,
+            wcity: capitalizeFirstLetter(job.wcity),
+            wcountry: capitalizeFirstLetter(job.wcountry),
         })),
         schools: experienceInfo.schools.map((school) => ({
             ...school,
-            endDateSchool: `${school.endDateSchool.split(' ')[0].slice(0, 3)} ${
-                school.endDateSchool.split(' ')[1]
-            }`,
+            endDateSchool: `${
+                new Date(school.endDateSchool).toLocaleString('default', {
+                    month: 'short',
+                })
+            } ${new Date(school.endDateSchool).getFullYear()}`,
+            scity: capitalizeFirstLetter(school.scity),
+            scountry: capitalizeFirstLetter(school.scountry),
         })),
         skills: experienceInfo.skills,
     }
     const data = {
-        ...personalInfo,
+        ...newPersonalInfo,
         jobs: newExperienceInfo.jobs,
         schools: newExperienceInfo.schools,
         ...newExperienceInfo.skills[0],
@@ -54,35 +67,40 @@ const cleanData = (personalInfo, experienceInfo) => {
 }
 
 app.post('/export', async (req, res) => {
-    let personalInfo = req.body.personal
-    let experienceInfo = req.body.experience
-    let templateInfo = req.body.template
-    let formatInfo = req.body.format
+    try {
+        let personalInfo = req.body.personal
+        let experienceInfo = req.body.experience
+        let templateInfo = req.body.template
+        let formatInfo = req.body.format
 
-    const data = cleanData(personalInfo, experienceInfo)
+        const data = cleanData(personalInfo, experienceInfo)
 
-    experienceInfo.jobs.forEach((job, index) => {
-        for (let key in job) {
-            data[`${key}-${index}`] = job[key]
-        }
-    })
+        experienceInfo.jobs.forEach((job, index) => {
+            for (let key in job) {
+                data[`${key}-${index}`] = job[key]
+            }
+        })
 
-    experienceInfo.schools.forEach((school, index) => {
-        for (let key in school) {
-            data[`${key}-${index}`] = school[key]
-        }
-    })
+        experienceInfo.schools.forEach((school, index) => {
+            for (let key in school) {
+                data[`${key}-${index}`] = school[key]
+            }
+        })
 
-    const template = new TemplateHandler()
-    let templateFile = fs.readFileSync(
-        `./src/assets/templates/template-${templateInfo}.docx`
-    )
+        const template = new TemplateHandler()
+        let templateFile = fs.readFileSync(
+            `./src/assets/templates/template-${templateInfo}.docx`
+        )
 
-    const doc = await template.process(templateFile, data)
+        const doc = await template.process(templateFile, data)
 
-    let outputPath = `./src/assets/resumes/${personalInfo.fname}-${personalInfo.lname}-cv.${formatInfo}`
-    fs.writeFileSync(outputPath, doc)
-    res.download(outputPath)
+        let outputPath = `./src/assets/resumes/${personalInfo.fname}-${personalInfo.lname}-cv.${formatInfo}`
+        fs.writeFileSync(outputPath, doc)
+        res.download(outputPath)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send('An error occurred while exporting the resume')
+    }
 })
 
 app.post('/support', (req, res) => {
@@ -93,7 +111,7 @@ app.post('/support', (req, res) => {
         service: 'gmail',
         auth: {
             user: 'resumiomail@gmail.com',
-            // eslint-disable-next-line no-undef
+            
             pass: process.env.pass,
         },
     })

@@ -8,7 +8,7 @@ export default defineConfig({
         react(),
         eslintPlugin({
             include: ['**/*.jsx', '**/*.js'],
-            exclude: ['node_modules', 'dist'],
+            exclude: ['node_modules', 'dist', '**/node_modules/**'],
         }),
     ],
     test: {
