@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useState } from 'react'
 import Header from '../components/Header.jsx'
 import Footer from '../components/Footer.jsx'
@@ -16,7 +17,20 @@ function Export() {
     }
 
     const exportCV = () => {
-        console.log('exporting')
+        switch (format) {
+            case 'docx':
+                console.log('docx')
+                break
+            case 'pdf':
+                console.log('pdf')
+                break
+            case 'png':
+                console.log('png')
+                break
+            default:
+                console.log('default')
+                break
+        }
     }
 
     return (

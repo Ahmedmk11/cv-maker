@@ -32,7 +32,7 @@ Button.defaultProps = {
     name: 'Click me!',
     classN: 'default-btn',
     click: () => {
-        console.log('I am clicked!')
+        console.log('Button clicked!')
     },
     isSubmit: false,
 }

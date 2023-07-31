@@ -92,11 +92,11 @@ function CreateCV(props) {
         }
     }
 
-    useEffect(() => {
-        console.log(personalInfo)
-        console.log(ExperienceInfo)
-        console.log(template)
-    }, [personalInfo, ExperienceInfo, template])
+    // useEffect(() => {
+    //     console.log(personalInfo)
+    //     console.log(ExperienceInfo)
+    //     console.log(template)
+    // }, [personalInfo, ExperienceInfo, template])
 
     return (
         <DataContext.Provider

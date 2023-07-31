@@ -10,7 +10,6 @@ function Home() {
         let coll = document.getElementsByTagName('a')
         let arr = Array.prototype.slice.call(coll, 0)
         arr.forEach((element) => {
-            console.log(element.textContent)
             if (element.textContent === 'Create CV') {
                 element.click()
                 return

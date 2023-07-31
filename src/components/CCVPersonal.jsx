@@ -1,11 +1,9 @@
-import React from 'react'
-import { useState, useLayoutEffect, useRef } from 'react'
-import Progress from '../components/Progress.jsx'
+import React, { useState, useLayoutEffect, useRef, useEffect } from 'react'
 import Button from '../components/Button.jsx'
 import { useForm } from 'react-hook-form'
 
 function CCVPersonal() {
-    const { handleSubmit, reset } = useForm()
+    const { handleSubmit } = useForm()
     const [personalData, setPersonalData] = useState({
         fname: '',
         lname: '',
@@ -18,6 +16,14 @@ function CCVPersonal() {
     })
 
     const scrollY = useRef(window.scrollY)
+
+    useEffect(() => {
+        const personalD = localStorage.getItem('personalData')
+        if (personalD) {
+            setPersonalData(JSON.parse(personalD))
+        }
+    }, [setPersonalData])
+    
 
     useLayoutEffect(() => {
         const handleScroll = () => {
@@ -40,7 +46,8 @@ function CCVPersonal() {
     }
 
     function savePersonal() {
-        console.log('submitted')
+        setPersonalData(personalData)
+        localStorage.setItem('personalData', JSON.stringify(personalData))
     }
 
     return (
@@ -97,7 +104,6 @@ function CCVPersonal() {
                                     'Must be a valid email, e.g. email@email.com'
                                 )
                             }
-                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}"
                             onChange={handleChange}
                         />
                         <label htmlFor="phone">Phone Number</label>
@@ -179,7 +185,7 @@ function CCVPersonal() {
                             value={personalData.website}
                         />
                     </fieldset>
-                    <Button classN="plus" name="Done" type="submit" />
+                    {(localStorage.getItem('personalData')) ? <Button classN="tick" name="Saved" type="submit" /> : <Button classN="plus" name="Done" type="submit" />}
                 </form>
             </div>
         </>
