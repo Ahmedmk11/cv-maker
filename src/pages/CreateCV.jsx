@@ -14,15 +14,16 @@ import CCVExperience from '../components/CCVExperience.jsx'
 import CCVTemplate from '../components/CCVTemplate.jsx'
 
 import DataContext from '../components/DataContext.jsx'
+import Export from './Export.jsx'
 
 function CreateCV(props) {
     const [count, setCount] = useState(0)
     const [personalInfo, setPersonalInfo] = useState({})
-    const [ExperienceInfo, setExperienceInfo] = useState({})
+    const [experienceInfo, setexperienceInfo] = useState({})
+    const [template, setTemplate] = useState('')
     const [jobs, setJobs] = useState([])
     const [schools, setSchools] = useState([])
     const [skills, setSkills] = useState([])
-    const [template, setTemplate] = useState('')
     const { stage } = props
     const navigate = useNavigate()
 
@@ -74,7 +75,7 @@ function CreateCV(props) {
             })
         }
         if (count === 1) {
-            setExperienceInfo({
+            setexperienceInfo({
                 jobs: jobs,
                 schools: schools,
                 skills: skills,
@@ -91,12 +92,6 @@ function CreateCV(props) {
             setCount(count - 1)
         }
     }
-
-    // useEffect(() => {
-    //     console.log(personalInfo)
-    //     console.log(ExperienceInfo)
-    //     console.log(template)
-    // }, [personalInfo, ExperienceInfo, template])
 
     return (
         <DataContext.Provider
@@ -142,12 +137,18 @@ function CreateCV(props) {
                                 <CCVExperience />
                             </>
                         )
-                    } else {
+                    } else if (stage === '2') {
                         return (
                             <>
                                 <h1>Templates</h1>
                                 <Progress progress={'2'} />
                                 <CCVTemplate />
+                            </>
+                        )
+                    } else {
+                        return (
+                            <>
+                                <Export personal={personalInfo} experience={experienceInfo} template={template} />
                             </>
                         )
                     }

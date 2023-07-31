@@ -1,5 +1,6 @@
-/* eslint-disable indent */
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+
 import Header from '../components/Header.jsx'
 import Footer from '../components/Footer.jsx'
 import Button from '../components/Button.jsx'
@@ -9,27 +10,51 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-function Export() {
+function Export(props) {
+    const { personal, experience, template } = props
     const [format, setFormat] = useState('docx');
 
     const handleChange = (event) => {
         setFormat(event.target.value)
     }
 
-    const exportCV = () => {
-        switch (format) {
-            case 'docx':
-                console.log('docx')
-                break
-            case 'pdf':
-                console.log('pdf')
-                break
-            case 'png':
-                console.log('png')
-                break
-            default:
-                console.log('default')
-                break
+    const checkValues = (obj) => {
+        for (let key in obj) {
+            if (obj[key] === '' && key !== 'linkedin' && key !== 'website') {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    const exportCV = async () => {
+        if (checkValues(personal) & template !== '') {
+            const response = await fetch('https://resumio-server.onrender.com/export', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    personal: personal,
+                    experience: experience,
+                    template: template,
+                    format: format,
+                })
+            })
+            if (response.ok) {
+                const blob = await response.blob()
+                const url = window.URL.createObjectURL(blob)
+                const link = document.createElement('a')
+                link.href = url
+                link.download = `${personal.fname}-${personal.fname}-resume.${format}`
+                document.body.appendChild(link)
+                link.click()
+                document.body.removeChild(link)
+            } else {
+                console.error('Error generating file')
+            }
+        } else {
+            console.log('missing data')
         }
     }
 
@@ -76,6 +101,18 @@ function Export() {
             <Footer />
         </>
     )
+}
+
+Export.propTypes = {
+    personal: PropTypes.object,
+    experience: PropTypes.object,
+    template: PropTypes.string,
+}
+
+Export.defaultProps = {
+    personal: {},
+    experience: {},
+    template: '1',
 }
 
 export default Export
