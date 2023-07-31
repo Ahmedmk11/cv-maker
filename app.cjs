@@ -1,10 +1,17 @@
-/* eslint-disable no-undef */
+// eslint-disable-next-line no-undef
 var express = require('express')
+// eslint-disable-next-line no-undef
+const fs = require('fs')
+// eslint-disable-next-line no-undef
 const cors = require('cors')
+// eslint-disable-next-line no-undef
 const bodyParser = require('body-parser')
-const { Template } = require('easy-template-x')
+// eslint-disable-next-line no-undef
+const { TemplateHandler } = require('easy-template-x')
+// eslint-disable-next-line no-undef
 var nodemailer = require('nodemailer')
 var app = express()
+// eslint-disable-next-line no-undef
 let port = process.env.PORT || 8080
 
 app.use(
@@ -15,19 +22,44 @@ app.use(
 
 app.use(bodyParser.json())
 
+const cleanData = (personalInfo, experienceInfo) => {
+    const newExperienceInfo = {
+        jobs: experienceInfo.jobs.map((job) => ({
+            ...job,
+            endDate: job.endDate
+                ? `${job.startDate.split(' ')[0].slice(0, 3)} ${
+                    job.startDate.split(' ')[1]
+                } - ${job.endDate.split(' ')[0].slice(0, 3)} ${
+                    job.endDate.split(' ')[1]
+                }`
+                : `${job.startDate.split(' ')[0].slice(0, 3)} ${
+                    job.startDate.split(' ')[1]
+                }`,
+        })),
+        schools: experienceInfo.schools.map((school) => ({
+            ...school,
+            endDateSchool: `${school.endDateSchool.split(' ')[0].slice(0, 3)} ${
+                school.endDateSchool.split(' ')[1]
+            }`,
+        })),
+        skills: experienceInfo.skills,
+    }
+    const data = {
+        ...personalInfo,
+        jobs: newExperienceInfo.jobs,
+        schools: newExperienceInfo.schools,
+        ...newExperienceInfo.skills[0],
+    }
+    return data
+}
+
 app.post('/export', async (req, res) => {
     let personalInfo = req.body.personal
     let experienceInfo = req.body.experience
     let templateInfo = req.body.template
     let formatInfo = req.body.format
 
-    const data = {
-        ...personalInfo,
-        skillsLength: experienceInfo.skills.length,
-        ...experienceInfo.skills[0],
-        jobsLength: experienceInfo.jobs.length,
-        schoolsLength: experienceInfo.schools.length,
-    }
+    const data = cleanData(personalInfo, experienceInfo)
 
     experienceInfo.jobs.forEach((job, index) => {
         for (let key in job) {
@@ -41,9 +73,8 @@ app.post('/export', async (req, res) => {
         }
     })
 
-    const template = new Template()
-    let templateFile
-    templateFile = fs.readFileSync(
+    const template = new TemplateHandler()
+    let templateFile = fs.readFileSync(
         `./src/assets/templates/template-${templateInfo}.docx`
     )
 
@@ -62,6 +93,7 @@ app.post('/support', (req, res) => {
         service: 'gmail',
         auth: {
             user: 'resumiomail@gmail.com',
+            // eslint-disable-next-line no-undef
             pass: process.env.pass,
         },
     })
