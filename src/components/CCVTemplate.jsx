@@ -1,4 +1,10 @@
-import React, { useEffect, useContext, useState, useLayoutEffect, useRef } from 'react'
+import React, {
+    useEffect,
+    useContext,
+    useState,
+    useLayoutEffect,
+    useRef,
+} from 'react'
 import Button from '../components/Button.jsx'
 import DataContext from '../components/DataContext.jsx'
 import template1 from '../assets/images/templates/template-1.png'
@@ -37,13 +43,17 @@ function CCVTemplate() {
                 setButton1(
                     <Button classN="tick" name="Selected" isSubmit={false} />
                 )
-                document.getElementById('temp-1').classList.add('selected-template')
+                document
+                    .getElementById('temp-1')
+                    .classList.add('selected-template')
             }
             if (chosenTemplate === '2') {
                 setButton2(
                     <Button classN="tick" name="Selected" isSubmit={false} />
                 )
-                document.getElementById('temp-2').classList.add('selected-template')
+                document
+                    .getElementById('temp-2')
+                    .classList.add('selected-template')
             }
         }
     }, [setTemplate])
@@ -79,7 +89,7 @@ function CCVTemplate() {
     return (
         <>
             <div id="templates">
-                <div id='temp-1' className="temp-item" onClick={chooseTemplate}>
+                <div id="temp-1" className="temp-item" onClick={chooseTemplate}>
                     <h3>Template 1</h3>
                     <div className="template-img-container">
                         <img
@@ -90,7 +100,7 @@ function CCVTemplate() {
                         {button1}
                     </div>
                 </div>
-                <div id='temp-2' className="temp-item" onClick={chooseTemplate}>
+                <div id="temp-2" className="temp-item" onClick={chooseTemplate}>
                     <h3>Template 2</h3>
                     <div className="template-img-container">
                         <img

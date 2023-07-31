@@ -16,34 +16,43 @@ app.use(
 app.use(bodyParser.json())
 
 app.post('/export', async (req, res) => {
-    let personalInfo = req.body.personal;
-    let experienceInfo = req.body.experience;
-    let templateInfo = req.body.template;
-    let formatInfo = req.body.format;
-
-    const template = new Template();
-    let templateFile;
-    templateFile = fs.readFileSync(`./src/assets/templates/template-${templateInfo}.docx`);
+    let personalInfo = req.body.personal
+    let experienceInfo = req.body.experience
+    let templateInfo = req.body.template
+    let formatInfo = req.body.format
 
     const data = {
         ...personalInfo,
+        skillsLength: experienceInfo.skills.length,
+        ...experienceInfo.skills[0],
         jobsLength: experienceInfo.jobs.length,
         schoolsLength: experienceInfo.schools.length,
-        skillsLength: experienceInfo.skills.length
-    };
-    
+    }
+
     experienceInfo.jobs.forEach((job, index) => {
         for (let key in job) {
-            data[`${key}-${index}`] = job[key];
+            data[`${key}-${index}`] = job[key]
         }
-    });
+    })
 
-    const doc = await template.process(templateFile, data);
+    experienceInfo.schools.forEach((school, index) => {
+        for (let key in school) {
+            data[`${key}-${index}`] = school[key]
+        }
+    })
 
-    let outputPath = `./src/assets/resumes/${personalInfo.fname}-${personalInfo.lname}-cv.${formatInfo}`;
-    fs.writeFileSync(outputPath, doc);
-    res.download(outputPath);
-});
+    const template = new Template()
+    let templateFile
+    templateFile = fs.readFileSync(
+        `./src/assets/templates/template-${templateInfo}.docx`
+    )
+
+    const doc = await template.process(templateFile, data)
+
+    let outputPath = `./src/assets/resumes/${personalInfo.fname}-${personalInfo.lname}-cv.${formatInfo}`
+    fs.writeFileSync(outputPath, doc)
+    res.download(outputPath)
+})
 
 app.post('/support', (req, res) => {
     let messageTitle = req.body.topic

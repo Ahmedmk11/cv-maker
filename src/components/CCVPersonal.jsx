@@ -23,7 +23,6 @@ function CCVPersonal() {
             setPersonalData(JSON.parse(personalD))
         }
     }, [setPersonalData])
-    
 
     useLayoutEffect(() => {
         const handleScroll = () => {
@@ -185,7 +184,11 @@ function CCVPersonal() {
                             value={personalData.website}
                         />
                     </fieldset>
-                    {(localStorage.getItem('personalData')) ? <Button classN="tick" name="Saved" type="submit" /> : <Button classN="plus" name="Done" type="submit" />}
+                    {localStorage.getItem('personalData') ? (
+                        <Button classN="tick" name="Saved" type="submit" />
+                    ) : (
+                        <Button classN="plus" name="Done" type="submit" />
+                    )}
                 </form>
             </div>
         </>

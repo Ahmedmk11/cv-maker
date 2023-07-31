@@ -148,7 +148,11 @@ function CreateCV(props) {
                     } else {
                         return (
                             <>
-                                <Export personal={personalInfo} experience={experienceInfo} template={template} />
+                                <Export
+                                    personal={personalInfo}
+                                    experience={experienceInfo}
+                                    template={template}
+                                />
                             </>
                         )
                     }

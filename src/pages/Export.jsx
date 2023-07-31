@@ -4,15 +4,15 @@ import PropTypes from 'prop-types'
 import Header from '../components/Header.jsx'
 import Footer from '../components/Footer.jsx'
 import Button from '../components/Button.jsx'
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import Box from '@mui/material/Box'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
 
 function Export(props) {
     const { personal, experience, template } = props
-    const [format, setFormat] = useState('docx');
+    const [format, setFormat] = useState('docx')
 
     const handleChange = (event) => {
         setFormat(event.target.value)
@@ -21,26 +21,29 @@ function Export(props) {
     const checkValues = (obj) => {
         for (let key in obj) {
             if (obj[key] === '' && key !== 'linkedin' && key !== 'website') {
-                return false;
+                return false
             }
         }
-        return true;
+        return true
     }
 
     const exportCV = async () => {
-        if (checkValues(personal) & template !== '') {
-            const response = await fetch('https://resumio-server.onrender.com/export', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    personal: personal,
-                    experience: experience,
-                    template: template,
-                    format: format,
-                })
-            })
+        if (checkValues(personal) & (template !== '')) {
+            const response = await fetch(
+                'https://resumio-server.onrender.com/export',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        personal: personal,
+                        experience: experience,
+                        template: template,
+                        format: format,
+                    }),
+                }
+            )
             if (response.ok) {
                 const blob = await response.blob()
                 const url = window.URL.createObjectURL(blob)
@@ -76,7 +79,9 @@ function Export(props) {
                     <div id="bottom">
                         <Box sx={{ minWidth: 200 }}>
                             <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Format</InputLabel>
+                                <InputLabel id="demo-simple-select-label">
+                                    Format
+                                </InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
@@ -84,7 +89,9 @@ function Export(props) {
                                     label="Format"
                                     onChange={handleChange}
                                 >
-                                    <MenuItem value={'docx'}>Word Document</MenuItem>
+                                    <MenuItem value={'docx'}>
+                                        Word Document
+                                    </MenuItem>
                                     <MenuItem value={'pdf'}>PDF</MenuItem>
                                     <MenuItem value={'png'}>Image</MenuItem>
                                 </Select>

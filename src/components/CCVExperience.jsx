@@ -24,7 +24,7 @@ function CCVExperience() {
     const { jobs, setJobs, schools, setSchools, skills, setSkills } =
         useContext(DataContext)
     const [jobData, setJobData] = useState({
-        id: '',
+        jobid: '',
         cname: '',
         jtitle: '',
         startDate: '',
@@ -34,7 +34,7 @@ function CCVExperience() {
         desc: '',
     })
     const [schoolData, setSchoolData] = useState({
-        id: '',
+        schoolid: '',
         uni: '',
         degree: '',
         major: '',
@@ -45,7 +45,7 @@ function CCVExperience() {
         descSchool: '',
     })
     const [skillsData, setSkillsData] = useState({
-        id: '',
+        skillid: '',
         certificates: '',
         skills: '',
         courses: '',
@@ -53,13 +53,13 @@ function CCVExperience() {
         references: '',
         languages: '',
     })
-    
+
     const saveWork = () => {
         console.log('jobData', jobData)
         if (!isEdit) {
             const newJobData = {
                 ...jobData,
-                id: jobs.length,
+                jobid: jobs.length,
             }
             setJobs((prevJobs) => {
                 const updatedJobs = [...prevJobs, newJobData]
@@ -67,7 +67,7 @@ function CCVExperience() {
                 return updatedJobs
             })
             setJobData({
-                id: '',
+                jobid: '',
                 cname: '',
                 jtitle: '',
                 startDate: '',
@@ -80,7 +80,7 @@ function CCVExperience() {
         } else {
             setJobs((prevJobs) => {
                 const updatedJobs = prevJobs.map((job) =>
-                    job.id === jobData.id ? jobData : job
+                    job.jobid === jobData.jobid ? jobData : job
                 )
                 localStorage.setItem('jobs', JSON.stringify(updatedJobs))
                 return updatedJobs
@@ -94,7 +94,7 @@ function CCVExperience() {
         if (!isEdit) {
             const newSchoolData = {
                 ...schoolData,
-                id: schools.length,
+                schoolid: schools.length,
             }
             setSchools((prevSchools) => {
                 const updatedSchools = [...prevSchools, newSchoolData]
@@ -102,7 +102,7 @@ function CCVExperience() {
                 return updatedSchools
             })
             setSchoolData({
-                id: '',
+                schoolid: '',
                 uni: '',
                 degree: '',
                 major: '',
@@ -116,7 +116,9 @@ function CCVExperience() {
         } else {
             setSchools((prevSchools) => {
                 const updatedSchools = prevSchools.map((school) =>
-                    school.id === schoolData.id ? schoolData : school
+                    school.schoolid === schoolData.schoolid
+                        ? schoolData
+                        : school
                 )
                 localStorage.setItem('schools', JSON.stringify(updatedSchools))
                 return updatedSchools
@@ -124,7 +126,7 @@ function CCVExperience() {
         }
         setIsEdit(false)
         setFlagS(0)
-    }    
+    }
 
     const saveSkills = () => {
         setSkills([skillsData])
@@ -169,7 +171,7 @@ function CCVExperience() {
     }, [])
     const cancelJob = (event) => {
         setJobData({
-            id: '',
+            jobid: '',
             cname: '',
             jtitle: '',
             startDate: '',
@@ -184,7 +186,7 @@ function CCVExperience() {
     }
     const cancelSchool = (event) => {
         setSchoolData({
-            id: '',
+            schoolid: '',
             uni: '',
             degree: '',
             major: '',
@@ -244,7 +246,7 @@ function CCVExperience() {
         if (savedSchools) {
             setSchools(savedSchools)
         }
-    }, [setSchools])    
+    }, [setSchools])
     useEffect(() => {
         const savedSkillsData = JSON.parse(localStorage.getItem('skillsData'))
         if (savedSkillsData) {
@@ -351,54 +353,54 @@ function CCVExperience() {
         const type = id.split('-')[0]
         const index = id.split('-')[1]
         switch (type) {
-        case 'job': {
-            const job = jobs[index]
-            setJobData({
-                id: job.id,
-                cname: job.cname,
-                jtitle: job.jtitle,
-                startDate: job.startDate,
-                endDate: job.endDate,
-                wcity: job.wcity,
-                wcountry: job.wcountry,
-                desc: job.desc,
-            })
-            setFlagW(1)
-            setButton1(<Button classN="plus" name="Done" isSubmit={true} />)
-            break
-        }
-        case 'school': {
-            const school = schools[index]
-            setSchoolData({
-                id: school.id,
-                uni: school.uni,
-                degree: school.degree,
-                major: school.major,
-                startDateSchool: school.startDateSchool,
-                endDateSchool: school.endDateSchool,
-                scity: school.scity,
-                scountry: school.scountry,
-                descSchool: school.descSchool,
-            })
-            setFlagS(1)
-            setButton2(<Button classN="plus" name="Done" isSubmit={true} />)
-            break
-        }
-        case 'skill': {
-            const skill = skills[0]
-            setSkillsData({
-                id: skill.id,
-                certificates: skill.certificates,
-                skills: skill.skills,
-                courses: skill.courses,
-                interests: skill.interests,
-                references: skill.references,
-                languages: skill.languages,
-            })
-            setFlagC(1)
-            setButton3(<Button classN="plus" name="Done" isSubmit={true} />)
-            break
-        }
+            case 'job': {
+                const job = jobs[index]
+                setJobData({
+                    jobid: job.jobid,
+                    cname: job.cname,
+                    jtitle: job.jtitle,
+                    startDate: job.startDate,
+                    endDate: job.endDate,
+                    wcity: job.wcity,
+                    wcountry: job.wcountry,
+                    desc: job.desc,
+                })
+                setFlagW(1)
+                setButton1(<Button classN="plus" name="Done" isSubmit={true} />)
+                break
+            }
+            case 'school': {
+                const school = schools[index]
+                setSchoolData({
+                    schoolid: school.schoolid,
+                    uni: school.uni,
+                    degree: school.degree,
+                    major: school.major,
+                    startDateSchool: school.startDateSchool,
+                    endDateSchool: school.endDateSchool,
+                    scity: school.scity,
+                    scountry: school.scountry,
+                    descSchool: school.descSchool,
+                })
+                setFlagS(1)
+                setButton2(<Button classN="plus" name="Done" isSubmit={true} />)
+                break
+            }
+            case 'skill': {
+                const skill = skills[0]
+                setSkillsData({
+                    skillid: skill.skillid,
+                    certificates: skill.certificates,
+                    skills: skill.skills,
+                    courses: skill.courses,
+                    interests: skill.interests,
+                    references: skill.references,
+                    languages: skill.languages,
+                })
+                setFlagC(1)
+                setButton3(<Button classN="plus" name="Done" isSubmit={true} />)
+                break
+            }
         }
     }
 
@@ -657,35 +659,47 @@ function CCVExperience() {
                         <hr />
                     </legend>
                     <div className="sections">
-                    {skills.length > 0 && (
-                        <Section
-                        key={`skill-0`}
-                        type="skills"
-                        id={`skill-0`}
-                        deleteSection={deleteSection}
-                        editSection={editSection}
-                        data={{
-                            certificates: skills[0]?.certificates
-                            ? skills[0].certificates.split(",").map((item) => item.trim())
-                            : [],
-                            skills: skills[0]?.skills
-                            ? skills[0].skills.split(",").map((item) => item.trim())
-                            : [],
-                            courses: skills[0]?.courses
-                            ? skills[0].courses.split(",").map((item) => item.trim())
-                            : [],
-                            interests: skills[0]?.interests
-                            ? skills[0].interests.split(",").map((item) => item.trim())
-                            : [],
-                            references: skills[0]?.references
-                            ? skills[0].references.split(",").map((item) => item.trim())
-                            : [],
-                            languages: skills[0]?.languages
-                            ? skills[0].languages.split(",").map((item) => item.trim())
-                            : [],
-                        }}
-                        />
-                    )}
+                        {skills.length > 0 && (
+                            <Section
+                                key={`skill-0`}
+                                type="skills"
+                                id={`skill-0`}
+                                deleteSection={deleteSection}
+                                editSection={editSection}
+                                data={{
+                                    certificates: skills[0]?.certificates
+                                        ? skills[0].certificates
+                                              .split(',')
+                                              .map((item) => item.trim())
+                                        : [],
+                                    skills: skills[0]?.skills
+                                        ? skills[0].skills
+                                              .split(',')
+                                              .map((item) => item.trim())
+                                        : [],
+                                    courses: skills[0]?.courses
+                                        ? skills[0].courses
+                                              .split(',')
+                                              .map((item) => item.trim())
+                                        : [],
+                                    interests: skills[0]?.interests
+                                        ? skills[0].interests
+                                              .split(',')
+                                              .map((item) => item.trim())
+                                        : [],
+                                    references: skills[0]?.references
+                                        ? skills[0].references
+                                              .split(',')
+                                              .map((item) => item.trim())
+                                        : [],
+                                    languages: skills[0]?.languages
+                                        ? skills[0].languages
+                                              .split(',')
+                                              .map((item) => item.trim())
+                                        : [],
+                                }}
+                            />
+                        )}
                     </div>
                     <fieldset id="skillsField" className="field" hidden>
                         <label htmlFor="certificates">Certifications</label>
