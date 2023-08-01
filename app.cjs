@@ -29,33 +29,39 @@ const cleanData = (personalInfo, experienceInfo) => {
         country: capitalizeFirstLetter(personalInfo.country),
     }
     const newExperienceInfo = {
-        jobs: experienceInfo.jobs.map((job) => ({
-            ...job,
-            endDate: job.endDate
-                ? `${new Date(job.startDate).toLocaleString('default', {
-                    month: 'short',
-                })} ${new Date(job.startDate).getFullYear()} - ${
-                    new Date(job.endDate).toLocaleString('default', {
+        jobs: experienceInfo.jobs && experienceInfo.jobs.length > 0
+            ? experienceInfo.jobs.map((job) => ({
+                ...job,
+                endDate: job.endDate
+                    ? `${new Date(job.startDate).toLocaleString('default', {
+                        month: 'short',
+                    })} ${new Date(job.startDate).getFullYear()} - ${
+                        new Date(job.endDate).toLocaleString('default', {
+                            month: 'short',
+                        })
+                    } ${new Date(job.endDate).getFullYear()}`
+                    : `${new Date(job.startDate).toLocaleString('default', {
+                        month: 'short',
+                    })} ${new Date(job.startDate).getFullYear()}`,
+                wcity: capitalizeFirstLetter(job.wcity),
+                wcountry: capitalizeFirstLetter(job.wcountry),
+            }))
+            : [],
+        schools: experienceInfo.schools && experienceInfo.schools.length > 0
+            ? experienceInfo.schools.map((school) => ({
+                ...school,
+                endDateSchool: `${
+                    new Date(school.endDateSchool).toLocaleString('default', {
                         month: 'short',
                     })
-                } ${new Date(job.endDate).getFullYear()}`
-                : `${new Date(job.startDate).toLocaleString('default', {
-                    month: 'short',
-                })} ${new Date(job.startDate).getFullYear()}`,
-            wcity: capitalizeFirstLetter(job.wcity),
-            wcountry: capitalizeFirstLetter(job.wcountry),
-        })),
-        schools: experienceInfo.schools.map((school) => ({
-            ...school,
-            endDateSchool: `${
-                new Date(school.endDateSchool).toLocaleString('default', {
-                    month: 'short',
-                })
-            } ${new Date(school.endDateSchool).getFullYear()}`,
-            scity: capitalizeFirstLetter(school.scity),
-            scountry: capitalizeFirstLetter(school.scountry),
-        })),
-        skills: experienceInfo.skills,
+                } ${new Date(school.endDateSchool).getFullYear()}`,
+                scity: capitalizeFirstLetter(school.scity),
+                scountry: capitalizeFirstLetter(school.scountry),
+            }))
+            : [],
+        skills: experienceInfo.skills && experienceInfo.skills.length > 0
+            ? experienceInfo.skills
+            : [],
     }
     const data = {
         ...newPersonalInfo,
@@ -75,17 +81,18 @@ app.post('/export', async (req, res) => {
 
         const data = cleanData(personalInfo, experienceInfo)
 
-        experienceInfo.jobs.forEach((job, index) => {
-            for (let key in job) {
-                data[`${key}-${index}`] = job[key]
-            }
-        })
-
-        experienceInfo.schools.forEach((school, index) => {
-            for (let key in school) {
-                data[`${key}-${index}`] = school[key]
-            }
-        })
+        if (experienceInfo.skills.length === 0) {
+            experienceInfo.jobs.forEach((job, index) => {
+                for (let key in job) {
+                    data[`${key}-${index}`] = job[key]
+                }
+            })
+            experienceInfo.schools.forEach((school, index) => {
+                for (let key in school) {
+                    data[`${key}-${index}`] = school[key]
+                }
+            })
+        }
 
         const template = new TemplateHandler()
         let templateFile = fs.readFileSync(
