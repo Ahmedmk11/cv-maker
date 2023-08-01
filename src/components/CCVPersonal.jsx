@@ -4,6 +4,9 @@ import { useForm } from 'react-hook-form'
 
 function CCVPersonal() {
     const { handleSubmit } = useForm()
+    const [button, setButton] = useState(
+        <Button classN="plus" name="Done" type="submit" />
+    )
     const [personalData, setPersonalData] = useState({
         fname: '',
         lname: '',
@@ -14,13 +17,15 @@ function CCVPersonal() {
         linkedin: '',
         website: '',
     })
-
     const scrollY = useRef(window.scrollY)
 
     useEffect(() => {
         const personalD = localStorage.getItem('personalData')
         if (personalD) {
             setPersonalData(JSON.parse(personalD))
+            setButton(
+                <Button classN="tick" name="Saved" type="submit" />
+            )
         }
     }, [setPersonalData])
 
@@ -47,6 +52,9 @@ function CCVPersonal() {
     function savePersonal() {
         setPersonalData(personalData)
         localStorage.setItem('personalData', JSON.stringify(personalData))
+        setButton(
+            <Button classN="tick" name="Saved" type="submit" />
+        )
     }
 
     return (
@@ -184,11 +192,7 @@ function CCVPersonal() {
                             value={personalData.website}
                         />
                     </fieldset>
-                    {localStorage.getItem('personalData') ? (
-                        <Button classN="tick" name="Saved" type="submit" />
-                    ) : (
-                        <Button classN="plus" name="Done" type="submit" />
-                    )}
+                    {button}
                 </form>
             </div>
         </>

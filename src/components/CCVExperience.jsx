@@ -599,6 +599,7 @@ function CCVExperience() {
                             id="endDateSchool"
                             type="date"
                             name="endDateSchool"
+                            required
                             value={schoolData.endDateSchool}
                             onChange={handleSchoolChange}
                         />
