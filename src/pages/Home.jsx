@@ -39,8 +39,8 @@ function Home() {
                                 <strong>Choose</strong> any template you prefer.
                             </li>
                             <li>
-                                <strong>Download</strong> it as a Word, PDF or a
-                                PNG & share it!
+                                <strong>Download</strong> it as a Word Document
+                                & share it!
                             </li>
                         </ol>
                     </div>

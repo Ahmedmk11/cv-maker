@@ -29,39 +29,50 @@ const cleanData = (personalInfo, experienceInfo) => {
         country: capitalizeFirstLetter(personalInfo.country),
     }
     const newExperienceInfo = {
-        jobs: experienceInfo.jobs && experienceInfo.jobs.length > 0
-            ? experienceInfo.jobs.map((job) => ({
-                ...job,
-                endDate: job.endDate
-                    ? `${new Date(job.startDate).toLocaleString('default', {
-                        month: 'short',
-                    })} ${new Date(job.startDate).getFullYear()} - ${
-                        new Date(job.endDate).toLocaleString('default', {
+        jobs:
+            experienceInfo.jobs && experienceInfo.jobs.length > 0
+                ? experienceInfo.jobs.map((job) => ({
+                    ...job,
+                    endDate: job.endDate
+                        ? `${new Date(job.startDate).toLocaleString(
+                            'default',
+                            {
+                                month: 'short',
+                            }
+                        )} ${new Date(
+                            job.startDate
+                        ).getFullYear()} - ${new Date(
+                            job.endDate
+                        ).toLocaleString('default', {
                             month: 'short',
-                        })
-                    } ${new Date(job.endDate).getFullYear()}`
-                    : `${new Date(job.startDate).toLocaleString('default', {
+                        })} ${new Date(job.endDate).getFullYear()}`
+                        : `${new Date(job.startDate).toLocaleString(
+                            'default',
+                            {
+                                month: 'short',
+                            }
+                        )} ${new Date(job.startDate).getFullYear()}`,
+                    wcity: capitalizeFirstLetter(job.wcity),
+                    wcountry: capitalizeFirstLetter(job.wcountry),
+                }))
+                : [],
+        schools:
+            experienceInfo.schools && experienceInfo.schools.length > 0
+                ? experienceInfo.schools.map((school) => ({
+                    ...school,
+                    endDateSchool: `${new Date(
+                        school.endDateSchool
+                    ).toLocaleString('default', {
                         month: 'short',
-                    })} ${new Date(job.startDate).getFullYear()}`,
-                wcity: capitalizeFirstLetter(job.wcity),
-                wcountry: capitalizeFirstLetter(job.wcountry),
-            }))
-            : [],
-        schools: experienceInfo.schools && experienceInfo.schools.length > 0
-            ? experienceInfo.schools.map((school) => ({
-                ...school,
-                endDateSchool: `${
-                    new Date(school.endDateSchool).toLocaleString('default', {
-                        month: 'short',
-                    })
-                } ${new Date(school.endDateSchool).getFullYear()}`,
-                scity: capitalizeFirstLetter(school.scity),
-                scountry: capitalizeFirstLetter(school.scountry),
-            }))
-            : [],
-        skills: experienceInfo.skills && experienceInfo.skills.length > 0
-            ? experienceInfo.skills
-            : [],
+                    })} ${new Date(school.endDateSchool).getFullYear()}`,
+                    scity: capitalizeFirstLetter(school.scity),
+                    scountry: capitalizeFirstLetter(school.scountry),
+                }))
+                : [],
+        skills:
+            experienceInfo.skills && experienceInfo.skills.length > 0
+                ? experienceInfo.skills
+                : [],
     }
     const data = {
         ...newPersonalInfo,
@@ -100,7 +111,6 @@ app.post('/export', async (req, res) => {
         )
 
         const doc = await template.process(templateFile, data)
-
         let outputPath = `./src/assets/resumes/${personalInfo.fname}-${personalInfo.lname}-cv.${formatInfo}`
         fs.writeFileSync(outputPath, doc)
         res.download(outputPath)
@@ -118,7 +128,7 @@ app.post('/support', (req, res) => {
         service: 'gmail',
         auth: {
             user: 'resumiomail@gmail.com',
-            
+
             pass: process.env.pass,
         },
     })

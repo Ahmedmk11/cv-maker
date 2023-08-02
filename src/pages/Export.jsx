@@ -109,8 +109,8 @@ function Export() {
                                             <MenuItem value={'docx'}>
                                                 Word Document
                                             </MenuItem>
-                                            <MenuItem value={'pdf'}>PDF</MenuItem>
-                                            <MenuItem value={'png'}>Image</MenuItem>
+                                            {/* <MenuItem value={'pdf'}>PDF</MenuItem>
+                                            <MenuItem value={'png'}>Image</MenuItem> */}
                                         </Select>
                                     </FormControl>
                                 </Box>

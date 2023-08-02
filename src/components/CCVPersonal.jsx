@@ -23,9 +23,7 @@ function CCVPersonal() {
         const personalD = localStorage.getItem('personalData')
         if (personalD) {
             setPersonalData(JSON.parse(personalD))
-            setButton(
-                <Button classN="tick" name="Saved" type="submit" />
-            )
+            setButton(<Button classN="tick" name="Saved" type="submit" />)
         }
     }, [setPersonalData])
 
@@ -52,9 +50,7 @@ function CCVPersonal() {
     function savePersonal() {
         setPersonalData(personalData)
         localStorage.setItem('personalData', JSON.stringify(personalData))
-        setButton(
-            <Button classN="tick" name="Saved" type="submit" />
-        )
+        setButton(<Button classN="tick" name="Saved" type="submit" />)
     }
 
     return (
